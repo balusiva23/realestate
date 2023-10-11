@@ -82,9 +82,9 @@ if($_SERVER['HTTP_HOST'] == 'localhost')
 }else
 {
 	$hostname = 'localhost';
-	$username = '';
-	$password = '';
-	$database = '';
+	$username = 'a1666q4e_real_estate_db';
+	$password = '^_VkTOkDBz.3';
+	$database = 'a1666q4e_real_estate_db';
 }
 
 
