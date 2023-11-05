@@ -60,63 +60,11 @@ class Home extends CI_Controller {
 
 
 	// ------------------properties-----------------------//
-// 	public function Properties($page = 1)
-// {
-//     // Load the pagination library
-//     $this->load->library('pagination');
 
-//     // Pagination configuration
-//     $config['base_url'] = base_url('Properties');
-//     $config['total_rows'] = $this->db->count_all('properties'); // Replace 'properties' with your actual table name
-//     $config['per_page'] = 4; // Number of properties per page
-//     $config['uri_segment'] = 2; // URI segment that contains the page number
-//     $config['use_page_numbers'] = TRUE;   
-//     /*
-//       Bootstrap styling for pagination links
-//     */
-//     $config['full_tag_open'] = '<ul class="pagination">';        
-//     $config['full_tag_close'] = '</ul>';        
-//     $config['first_link'] = 'First';        
-//     $config['last_link'] = 'Last';        
-//     $config['first_tag_open'] = '<li class="page-item"><span class="page-link">';        
-//     $config['first_tag_close'] = '</span></li>';        
-//     $config['prev_link'] = '&laquo';        
-//     $config['prev_tag_open'] = '<li class="page-item"><span class="page-link">';        
-//     $config['prev_tag_close'] = '</span></li>';        
-//     $config['next_link'] = '&raquo';        
-//     $config['next_tag_open'] = '<li class="page-item"><span class="page-link">';        
-//     $config['next_tag_close'] = '</span></li>';        
-//     $config['last_tag_open'] = '<li class="page-item"><span class="page-link">';        
-//     $config['last_tag_close'] = '</span></li>';        
-//     $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';        
-//     $config['cur_tag_close'] = '</a></li>';        
-//     $config['num_tag_open'] = '<li class="page-item"><span class="page-link">';        
-//     $config['num_tag_close'] = '</span></li>';
-
-//     $this->pagination->initialize($config);
-
-//     // Get the page number from the URI segment
-//     $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 1;
-
-//     // Load your Property_model
-//     $this->load->model('Property_model');
-//    // $page = max(1, $page); // Ensure page is at least 1
-//     // Calculate the offset based on the page number and per_page
-//     $offset = ($page - 1) * $config['per_page'];
- 
-//     // Get property data for the current page
-//     $this->data['properties'] = $this->Property_model->getProperties($offset, $config['per_page']);
-//     //print_r($this->data['properties']);
-//     // Generate pagination links
-//     $this->data['links'] = $this->pagination->create_links();
-
-//     // Load the view with the correct data
-//     $this->load->view('Frontend/properties', $this->data);
-//    }
-
-
-		public function Properties()
+   public function Properties()
 	{
+		 //cities
+         $this->data['get_cities'] = $this->Common_model->getcities();
 		$this->load->view('Frontend/properties',$this->data);
 	}
 
@@ -131,11 +79,13 @@ class Home extends CI_Controller {
 		// $storage = $this->input->post('storage');
 		$sale = $this->input->post('sale');
 		$rent = $this->input->post('rent');
+		$lease = $this->input->post('lease');
+		$city = $this->input->post('city');
 		$this->load->library("pagination");
 		$config = array();
 		$config["base_url"] = "#";
 		//$config["total_rows"] = $this->Property_model->count_all($minimum_price, $maximum_price, $brand, $ram, $storage);
-		$config["total_rows"] = $this->Property_model->count_all($sale, $rent);
+		$config["total_rows"] = $this->Property_model->count_all($sale, $rent,$lease,$city);
 		$config["per_page"] = 4;
 		$config["uri_segment"] = 3;
 		$config["use_page_numbers"] = TRUE;
@@ -168,7 +118,7 @@ class Home extends CI_Controller {
 		$output = array(
 			'pagination_link'		=>	$this->pagination->create_links(),
 			//'product_list'			=>	$this->Property_model->fetch_data($config["per_page"], $start, $minimum_price, $maximum_price, $brand, $ram, $storage)
-			'product_list'			=>	$this->Property_model->fetch_data($config["per_page"], $start,$sale, $rent)
+			'product_list'			=>	$this->Property_model->fetch_data($config["per_page"], $start,$sale, $rent,$lease,$city)
 		);
 		echo json_encode($output);
 	}

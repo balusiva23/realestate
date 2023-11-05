@@ -61,8 +61,9 @@ class Dashboard extends CI_Controller {
          public function AddProperties()
         {
         $this->checkLogin(); // Add this line to check login
-    
-        $this->load->view('Backend/properties/add_properties');
+          //cities
+         $data['get_cities'] = $this->Common_model->getcities();
+        $this->load->view('Backend/properties/add_properties',$data);
         }  
          public function EditProperties()
         {
@@ -70,6 +71,8 @@ class Dashboard extends CI_Controller {
         //getProperties
         $id = $this->input->get('I');
         $data['data'] = $this->Common_model->getPropertiesbyid($id);
+          //cities
+         $data['get_cities'] = $this->Common_model->getcities();
         $this->load->view('Backend/properties/edit_properties',$data);
         }
          public function ViewProperties()

@@ -70,18 +70,20 @@
                       <!-- <option selected>Open this select menu</option> -->
                       <option value="1">For Sale</option>
                       <option value="2">For Rent</option>
+                        <option value="3" >For Lease </option>
                   
                     </select>
                   </div>
                   <div class="col-sm-4">
                   	 <label for="inputEmail" class="col-form-label">Type</label><span class="error"> * </span>
-                  <select class="form-select" name="propertyType" id="propertyType" required>
+                      <input type="text" class="form-control" name="propertyType" id="propertyType" required>
+          <!--         <select class="form-select" name="propertyType" id="propertyType" required>
                         <option value="Apartment">Apartment</option>
                         <option value="House">House</option>
                         <option value="Commercial">Commercial</option>
                         <option value="Garage">Garage</option>
                         <option value="Lot">Lot</option>
-                    </select>
+                    </select> -->
                   </div>
             
                 </div>     
@@ -138,7 +140,15 @@
                   </div> 
                   <div class="col-sm-4">
                   	 <label for="inputText" class="col-form-label">City</label>
-                    <input type="text" class="form-control" name="city" id="city">
+                    <!-- <input type="text" class="form-control" name="city" id="city"> -->
+                    <select class="form-control input-height" name="city"  id="city">
+                      <option value="">Select...</option>
+                  <?php 
+                         foreach ($get_cities as  $value) { ?>
+                        <option value="<?= $value->id ?>"><?= $value->city; ?></option>
+                        <?php  }
+                           ?>
+                          </select>
                   </div> 
                   <div class="col-sm-4">
                   	 <label for="inputText" class="col-form-label">State</label>

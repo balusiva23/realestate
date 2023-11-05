@@ -222,6 +222,14 @@ class Common_model extends CI_Model {
         return false;
     }
     }
-
+  //cities
+        public function getcities()
+    {
+     
+        $this->db->order_by('id', 'asc');
+        $this->db->where('isActive', '1');
+        $query = $this->db->get('cities');
+        return $query->result();
+    }
 
 }

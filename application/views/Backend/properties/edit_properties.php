@@ -70,6 +70,7 @@
                       <!-- <option selected>Open this select menu</option> -->
                       <option value="1" <?php echo ($data->propertyStatus == '1') ? 'selected' : ''  ?>>For Sale</option>
                       <option value="2" <?php echo ($data->propertyStatus == '2') ? 'selected' : ''  ?>>For Rent</option>
+                      <option value="3" <?php echo ($data->propertyStatus == '3') ? 'selected' : ''  ?>>For Lease </option>
                   
                     </select>
                   </div>
@@ -139,7 +140,15 @@
                   </div> 
                   <div class="col-sm-4">
                   	 <label for="inputText" class="col-form-label">City</label>
-                    <input type="text" class="form-control" name="city" id="city" value="<?= $data->city?>">
+                    <!-- <input type="text" class="form-control" name="city" id="city" value="<?= $data->city?>"> -->
+                     <select class="form-control input-height" name="city"  id="city">
+                      <option value="">Select...</option>
+                  <?php 
+                         foreach ($get_cities as  $value) { ?>
+                        <option value="<?= $value->id ?>"><?= $value->city; ?></option>
+                        <?php  }
+                           ?>
+                          </select>
                   </div> 
                   <div class="col-sm-4">
                   	 <label for="inputText" class="col-form-label">State</label>

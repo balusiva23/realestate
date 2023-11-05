@@ -78,7 +78,7 @@
            <div class="col-lg-4 col-md-12">
                 <div class="sidebar-right">
                                     <div class="widget advanced-search">
-                        <h3 class="sidebar-title">Filter</h3>
+                        <!-- <h3 class="sidebar-title">Filter by status</h3> -->
                         <form method="POST" id="property-filter-form">
                         <!--     <div class="form-group">
                                 <select class="selectpicker search-fields"  name="propertyStatus">
@@ -87,18 +87,50 @@
                                     <option value="2">For Rent</option>
                                 </select>
                             </div> -->
-                           <div class="checkbox checkbox-theme checkbox-circle">
-                                                    <input id="checkbox1" type="checkbox" class="common_selector sale" value="1" name="sale">
-                                                    <label for="checkbox1">
-                                                       For Sale
-                                                    </label>
-                           </div> 
+                            <!-- Status -->
+                        <h3 class="sidebar-title">Filter by status</h3>
+                       <div class="checkbox checkbox-theme checkbox-circle">
+                        <input id="checkbox1" type="checkbox" class="common_selector sale" value="1" name="sale">
+                        <label for="checkbox1">
+                           For Sale
+                        </label>
+                       </div> 
                               <div class="checkbox checkbox-theme checkbox-circle">
-                                                    <input id="checkbox2" type="checkbox" value="2" class="common_selector rent" name="rent"> 
-                                                    <label for="checkbox2">
-                                                      For Rent
-                                                    </label>
-                           </div>
+                                <input id="checkbox2" type="checkbox" value="2" class="common_selector rent" name="rent"> 
+                                <label for="checkbox2">
+                                  For Rent
+                                </label>
+                           </div>  
+                           <div class="checkbox checkbox-theme checkbox-circle">
+                            <input id="checkbox3" type="checkbox" value="3" class="common_selector lease" name="lease"> 
+                            <label for="checkbox3">
+                              For Lease 
+                            </label>
+                           </div>   
+                                  <!-- City -->
+                        <h3 class="sidebar-title">Filter by city</h3>
+                    
+
+                         <?php 
+                         foreach ($get_cities as  $value) { ?>
+                               <div class="checkbox checkbox-theme checkbox-circle">
+                        <!-- <option value="<?= $value->id ?>"><?= $value->city; ?></option> -->
+                        <input id="cityCheckbok_<?= $value->id ?>" type="checkbox" class="common_selector city"  name="city" value="<?= $value->id; ?>">
+                        <label for="cityCheckbok_<?= $value->id ?>">
+                          <?= $value->city; ?>
+                        </label>
+                          </div> 
+                        <?php  }
+                           ?>
+
+
+                        <!-- <input id="checkbox1" type="checkbox" class="common_selector sale" value="1" name="sale">
+                        <label for="checkbox1">
+                           For Sale
+                        </label> -->
+
+                     
+                   
                         
                             <div class="faq-info other-features">
                                 <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -204,19 +236,18 @@ $(document).ready(function(){
         $('#pagination_link').hide();
         var action = 'fetch_data';
         //var page = 1;
-        // var minimum_price = $('#hidden_minimum_price').val();
-        // var maximum_price = $('#hidden_maximum_price').val();
-        // var brand = get_filter('brand');
-        // var ram = get_filter('ram');
-        // var storage = get_filter('storage');
+    
         var sale = get_filter('sale');
         var rent = get_filter('rent');
+        var lease = get_filter('lease');
+        var city = get_filter('city');
+        //console.log(city)
         $.ajax({
             url:"<?php echo base_url(); ?>Home/fetch_data/"+page,
             method:"POST",
             dataType:"JSON",
             //data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand, ram:ram, storage:storage},
-            data:{action:action, sale:sale, rent:rent},
+            data:{action:action, sale:sale, rent:rent,lease:lease,city:city},
             success:function(data)
             {
                  $('.filter_data').html(data.product_list);
@@ -224,7 +255,7 @@ $(document).ready(function(){
                        // $('#pagination_link').html(data.pagination_link);
                         $('.pagination-box #pagination_link').html(data.pagination_link);
                        
-                        console.log(data.pagination_link)
+                       // console.log(data.pagination_link)
                   
                
             }
