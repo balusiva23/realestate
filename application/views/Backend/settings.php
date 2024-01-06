@@ -50,10 +50,10 @@
                 <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Favicon</button>
                 </li>
-
+<!-- 
                 <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Topbar</button>
-                </li>
+                </li> -->
 
                 <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Banner</button>

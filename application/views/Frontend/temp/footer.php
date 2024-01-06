@@ -12,7 +12,7 @@
                             </li>
                             <li>
                                 <a href="mailto: <?php echo ($settings->footer_email) ?  $settings->footer_email : '' ?>"> <?php echo ($settings->footer_email) ?  $settings->footer_email : '' ?></a>
-                                 <!-- <a href="mailto:sales@hotelempire.com">info@mail.com</a> -->
+                               
                             </li>
                             <li>
                                 <a href="tel:<?php echo ($settings->footer_phone) ?  $settings->footer_phone : '' ?>"><?php echo ($settings->footer_phone) ?  $settings->footer_phone : '' ?></a>
@@ -125,6 +125,10 @@
     <script src="<?php echo base_url(); ?>assets/web/js/ie10-viewport-bug-workaround.js"></script>
     <!-- Custom javascript -->
     <script src="<?php echo base_url(); ?>assets/web/js/ie10-viewport-bug-workaround.js"></script>
+
+       <script src="<?php echo base_url(); ?>assets/wnoty/jquery-confirm.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script> 
+    <script src="<?php echo base_url(); ?>assets/wnoty/wnoty.js"></script>
     <script>
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
@@ -135,3 +139,118 @@
         ga('create', 'UA-89110077-3', 'auto');
         ga('send', 'pageview');
     </script>
+
+
+     <!-- //-----------------------------Contact us ------------------------------- -->
+    <div class="modal fade" id="conditionsmodal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered ">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Contact Us</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+               <form action="#" id="contact-page-contact-form" class="form-horizontal" method="post" enctype="multipart/form-data">
+            <div class="modal-body">
+             
+                    <div class="form-group">
+                        <label for="inputName" class="form-label">Name<span class="error"> * </span></label>
+                        <input type="text" name="name" id="name1" class="form-control" placeholder="Name"
+                                    aria-label="Full Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputName" class="form-label">Email<span class="error"> * </span></label>
+                          <input type="email" name="email" id="email1" class="form-control"
+                                    placeholder="Email Address" aria-label="Email Address">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputName" class="form-label">Phone Number<span class="error"> * </span></label>
+                         <input type="text" name="phone" class="form-control" placeholder="Phone"
+                                    aria-label="Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputName" class="form-label">Message<span class="error"> * </span></label>
+                          <textarea class="form-control" name="message" placeholder=" message"
+                                    aria-label="Write message"></textarea>
+                    </div>
+
+               
+                    <!-- <div class="form-group mb-0">
+                        <button class="btn-4 btn-round-3 w-100">Submit</button>
+                    </div> -->
+               
+               
+          </div>
+          <div class="modal-footer">
+             <input type="hidden" name="id">
+            <input type="hidden" name="property_id">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
+            <button type="button" class="btn btn-4 " id="send_contact" style="    padding: 0.375rem 0.75rem;line-height: 1.5;">Save</button>
+          </div>
+        </form>
+          </div>
+        </div>
+      </div> 
+
+
+
+      <script>
+     $(document).on('click','#send_contact',function(){
+
+        event.preventDefault();
+           $("#contact-page-contact-form").valid();
+           var email = $("#email1").val();
+           var name=$("#name1").val();
+            
+           
+
+        if(email != '' && name != ''  ){ // 
+          
+         $.ajax({
+        type:'post',
+        url: '<?php echo base_url("Home/contactus_mail");?>',
+        data: new FormData($("#contact-page-contact-form")[0]),
+        contentType: false,
+        processData: false, 
+        success:function(resp){
+        var data=$.parseJSON(resp);
+        if(data.status == 'success'){
+        $('#contact-page-contact-form')[0].reset();
+
+          $('#conditionsmodal').modal('hide');
+          $(".modal-backdrop").remove();
+        $.wnoty({
+        type: 'success',
+        message: 'Thank you for contactus!',
+        autohideDelay: 1000,
+        position: 'top-right'
+
+        });
+        // setTimeout(function(){
+        // window.location.href = '<?php echo base_url()?>'+data.url;
+        // },1000);
+         setTimeout(function(){
+            location.reload(true);
+            },2000);
+       }else if(data.status == 'error'){
+      
+              $.wnoty({
+                    type: 'error',
+                    message: data.message,
+                    autohideDelay: 1000,
+                    position: 'top-right'
+
+                    });
+               setTimeout(function(){
+                window.location.href = '<?php echo base_url()?>';
+                },2000);
+        }
+        },
+        });
+        }
+     
+        return false;
+        })
+
+
+
+</script>

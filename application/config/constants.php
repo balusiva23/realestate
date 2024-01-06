@@ -1,5 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+// Define a constant for the base URL
+define('USERNAME', 'sivabs123@gmail.com');
+define('PASSWORD', 'gwyo nnrg blfx ossw');
+define('FROM', 'sivabs123@gmail.com');
+define('FROMNAME', 'Admin');
 
 /*
 |--------------------------------------------------------------------------

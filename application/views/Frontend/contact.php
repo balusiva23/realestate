@@ -56,14 +56,22 @@
                             <i class="flaticon-technology-1"></i>
                             <div class="detail">
                                 <h5 class="mt-0">Phone:</h5>
-                                <p><a href="tel:0477-0477-8556-552">+91 99866-24657</a></p>
+                                <p><a href="tel:+91 8904681890">+91 8904681890</a></p>
                             </div>
                         </div>
-                        <div class="contact-info-box d-flex mb-3">
+                        <!-- <div class="contact-info-box d-flex mb-3">
                             <i class="flaticon-envelope"></i>
                             <div class="detail">
                                 <h5 class="mt-0">Email:</h5>
                                 <p><a href="#">info@mail.com</a></p>
+                            </div>
+                        </div>   -->
+
+                        <div class="contact-info-box d-flex mb-3">
+                            <i class="flaticon-envelope"></i>
+                            <div class="detail">
+                                <h5 class="mt-0">Address :</h5>
+                                <p>No 19, B. No 4784/J1/Sf 19, Pride Icon, Gokul Road, Hubli - 580030</p>
                             </div>
                         </div>
 
@@ -77,23 +85,23 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="form-group name">
-                                        <input type="text" name="name" class="form-control" placeholder="Name"
+                                        <input type="text" name="name"id="name" class="form-control" placeholder="Name"
                                             aria-label="Full Name">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="form-group email">
-                                        <input type="email" name="email" class="form-control"
+                                        <input type="email" name="email" id="email" class="form-control"
                                             placeholder="Email Address" aria-label="Email Address">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                <!-- <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="form-group subject">
                                         <input type="text" name="subject" class="form-control" placeholder="Subject"
                                             aria-label="Subject">
                                     </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                </div> -->
+                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="form-group number">
                                         <input type="text" name="phone" class="form-control" placeholder="Phone"
                                             aria-label="Phone Number">
@@ -107,7 +115,7 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="send-btn">
-                                        <button type="submit" class="btn-4 btn-round-3">Send Message</button>
+                                        <button type="button" class="btn-4 btn-round-3" id="sendcontact1">Send Message</button>
                                     </div>
                                 </div>
                             </div>
@@ -201,5 +209,63 @@
 
 </body>
 
+     <script>
+     $(document).on('click','#sendcontact1',function(){
 
+        event.preventDefault();
+           $("#contact_form").valid();
+           var email = $("#email").val();
+           var name=$("#name").val();
+            
+           
+
+        if(email != '' && name != ''  ){ // 
+          
+         $.ajax({
+        type:'post',
+        url: '<?php echo base_url("Home/contactus_mail");?>',
+        data: new FormData($("#contact_form")[0]),
+        contentType: false,
+        processData: false, 
+        success:function(resp){
+        var data=$.parseJSON(resp);
+        if(data.status == 'success'){
+        $('#contact_form')[0].reset();
+
+        $.wnoty({
+        type: 'success',
+        message: 'Thank you for contactus!',
+        autohideDelay: 1000,
+        position: 'top-right'
+
+        });
+        // setTimeout(function(){
+        // window.location.href = '<?php echo base_url()?>'+data.url;
+        // },1000);
+         setTimeout(function(){
+            location.reload(true);
+            },2000);
+       }else if(data.status == 'error'){
+      
+              $.wnoty({
+                    type: 'error',
+                    message: data.message,
+                    autohideDelay: 1000,
+                    position: 'top-right'
+
+                    });
+               setTimeout(function(){
+                window.location.href = '<?php echo base_url()?>';
+                },2000);
+        }
+        },
+        });
+        }
+     
+        return false;
+        })
+
+
+
+</script>
 </html>

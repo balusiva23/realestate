@@ -205,10 +205,13 @@
                  <div class="row mb-3">
                   
                    <div class="col-sm-4">
-                   <label for="inputText" class="col-form-label">Property Video</label>
-                    <input type="text" class="form-control" name="video" id="video" placeholder="https://www.youtube.com/embed/VIDEO_I">
+                   <label for="inputText" class="col-form-label">Property Video</label> <small>(Max Size 50Mb)</small>
+                    <!-- <input type="text" class="form-control" name="video" id="video" placeholder="https://www.youtube.com/embed/VIDEO_I"> -->
 
-                   <p>Here's how to get the embed URL from Youtube:</p>
+                  <input type="file"  class="form-control" name="video" id="video" accept=".mp4">
+                  
+
+             <!--       <p>Here's how to get the embed URL from Youtube:</p>
                    <p>
 					<p>1.Find Your Video: Go to YouTube and find the video you want to embed.</p>
 					<p>2.Click "Share": Below the video, click the "Share" button.</p>
@@ -225,7 +228,7 @@
 					   https://www.youtube.com/embed/VIDEO_ID
 					   </code>
 					</p>
-                     </p>
+                 -->     </p>
                    </div> 
                  
                </div>

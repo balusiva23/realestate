@@ -12,14 +12,17 @@
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9">
-                    <div class="top-header-inner">
-                        <div class="top-contact-item">
+                    <div class="top-header-inner" style="    padding: 30px 0;justify-content: right;">
+                       <div class="text-right">
+                          <a class="btn-2" href="#" class="Openconditionsmodal" data-bs-toggle="modal" data-bs-target="#conditionsmodal">Contact Us</a>
+                           </div>
+                    <!--     <div class="top-contact-item">
                             <i class="bi bi-geo-alt"></i>
                             <div class="content">
                                 <p>Our Location</p>
                                 <a href="#"
                                     target="blank"><?php echo ($settings->top_bar_location) ?  $settings->top_bar_location : '' ?> </a>
-                                    <!-- Gokul road, Hubli -->
+                                   
                             </div>
                         </div>
                         <div class="top-contact-item">
@@ -27,7 +30,7 @@
                             <div class="content">
                                 <p>Online Support</p>
                                 <a href="mailto:<?php echo ($settings->top_bar_email) ?  $settings->top_bar_email : '' ?>"><?php echo ($settings->top_bar_email) ?  $settings->top_bar_email : '' ?> </a>
-                                <!--  info@rana.com -->
+                              
                             </div>
                         </div>
                         <div class="top-contact-item tci2">
@@ -35,9 +38,9 @@
                             <div class="content">
                                 <p>Free Contact</p>
                                 <a href="tel:<?php echo ($settings->top_bar_phone) ?  $settings->top_bar_phone : '' ?>"> <?php echo ($settings->top_bar_phone) ?  $settings->top_bar_phone : '' ?> </a>
-                                <!-- +91 99866-24657 -->
+                                
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

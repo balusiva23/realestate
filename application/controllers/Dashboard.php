@@ -1171,6 +1171,54 @@ class Dashboard extends CI_Controller {
             $floorimg_url = '';
         }
 
+
+  //new video 
+         // Check if the 'video' file is uploaded (optional)
+        if ($_FILES['video']['name']) {
+            $video_file_name = $_FILES['video']['name'];
+            // Handle file upload and validation for 'video' here (similar to 'thumnail')
+             $file_name = $_FILES['video']['name'];
+            $fileSize = $_FILES["video"]["size"]/1024;
+            $fileType = $_FILES["video"]["type"];
+            $new_file_name='';
+            $new_file_name .= $file_name;
+
+            $config = array(
+                'file_name' => $new_file_name,
+                'upload_path' => "./assets/uploads/properties_videos",
+                'allowed_types' => "mp4|avi|mov|flv",
+                'overwrite' => TRUE,
+                'max_size' => 50 * 1024
+            );
+            //create directory
+              if(!is_dir($config['upload_path'])) mkdir($config['upload_path'], 0777, TRUE);
+    
+            $this->load->library('Upload', $config);
+            $this->upload->initialize($config);                
+            if (!$this->upload->do_upload('video')) {
+             // echo $this->upload->display_errors();
+               echo json_encode(array('status' => 'error', 'message' => $this->upload->display_errors()));
+
+              exit;
+
+                // $error = $this->upload->display_errors();
+        
+                 
+                #redirect("notice/All_notice");
+            }else {
+           
+              $file_data = $this->upload->data();
+
+            // If the upload is successful, get the file name
+            $video = $file_data['file_name'];
+          }
+        }
+         else {
+            // If 'video' is not uploaded, set it to an empty string or handle accordingly
+            $video = '';
+        }
+        //new video 
+
         // Create an array with the property data
         $property_data = array(
             'propertyName' => $this->input->post('propertyName'),
@@ -1188,7 +1236,8 @@ class Dashboard extends CI_Controller {
             'description' => $this->input->post('description'),
             'floorimg' => $floorimg_url,
             'location' => $this->input->post('location'),
-            'video' => $this->input->post('video')
+            'video' => $video
+           // 'video' => $this->input->post('video')
         );
 
         $table = 'properties'; // Adjust the table name as needed
@@ -1281,6 +1330,53 @@ class Dashboard extends CI_Controller {
             $floorimg_url = '';
         }
 
+         //new video 
+         // Check if the 'video' file is uploaded (optional)
+        if ($_FILES['video']['name']) {
+            $video_file_name = $_FILES['video']['name'];
+            // Handle file upload and validation for 'video' here (similar to 'thumnail')
+             $file_name = $_FILES['video']['name'];
+            $fileSize = $_FILES["video"]["size"]/1024;
+            $fileType = $_FILES["video"]["type"];
+            $new_file_name='';
+            $new_file_name .= $file_name;
+
+            $config = array(
+                'file_name' => $new_file_name,
+                'upload_path' => "./assets/uploads/properties_videos",
+                'allowed_types' => "mp4|avi|mov|flv",
+                'overwrite' => TRUE,
+                'max_size' => 50 * 1024
+            );
+            //create directory
+              if(!is_dir($config['upload_path'])) mkdir($config['upload_path'], 0777, TRUE);
+    
+            $this->load->library('Upload', $config);
+            $this->upload->initialize($config);                
+            if (!$this->upload->do_upload('video')) {
+             // echo $this->upload->display_errors();
+               echo json_encode(array('status' => 'error', 'message' => $this->upload->display_errors()));
+
+              exit;
+
+                // $error = $this->upload->display_errors();
+        
+                 
+                #redirect("notice/All_notice");
+            }else {
+           
+              $file_data = $this->upload->data();
+
+            // If the upload is successful, get the file name
+            $video = $file_data['file_name'];
+          }
+        }
+         else {
+            // If 'video' is not uploaded, set it to an empty string or handle accordingly
+            $video = '';
+        }
+        //new video 
+
         // Create an array with the property data
         $property_data = array(
             'propertyName' => $this->input->post('propertyName'),
@@ -1298,7 +1394,8 @@ class Dashboard extends CI_Controller {
             'description' => $this->input->post('description'),
             //'floorimg' => $floorimg_url,
             'location' => $this->input->post('location'),
-            'video' => $this->input->post('video')
+            'video' => $video
+            //'video' => $this->input->post('video')
         );
           if ($thumnail_img_url) {
                     $property_data["thumnail"] = $thumnail_img_url;

@@ -34,6 +34,13 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/web/css/ie10-viewport-bug-workaround.css">
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script  src="js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="js/ie-emulation-modes-warning.js"></script>
+ 
+
+
+   <link href="<?php echo base_url(); ?>assets/wnoty/wnoty.css" rel="stylesheet" type="text/css" />  
+   <link href="<?php echo base_url(); ?>assets/wnoty/jquery-confirm.min.css" rel="stylesheet" type="text/css" /> 
+   <style>
+       .error{
+        color: red;
+       }
+   </style>

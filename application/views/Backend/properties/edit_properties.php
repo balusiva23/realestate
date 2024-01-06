@@ -207,8 +207,10 @@
                  <div class="row mb-3">
                   
                    <div class="col-sm-4">
-                   <label for="inputText" class="col-form-label">Property Video</label>
-                    <input type="text" class="form-control" name="video" id="video" placeholder="https://www.youtube.com/embed/VIDEO_I" value="<?= $data->video?>">
+                   <label for="inputText" class="col-form-label">Property Video</label> <small>(Max Size 50Mb)</small>
+
+                    <input type="file"  class="form-control" name="video" id="video" accept=".mp4">
+                 <!--    <input type="text" class="form-control" name="video" id="video" placeholder="https://www.youtube.com/embed/VIDEO_I" value="<?= $data->video?>">
 
                    <p>Here's how to get the embed URL from Youtube:</p>
                    <p>
@@ -227,7 +229,7 @@
 					   https://www.youtube.com/embed/VIDEO_ID
 					   </code>
 					</p>
-                     </p>
+                     </p> -->
                    </div> 
                  
                </div>

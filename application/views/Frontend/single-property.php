@@ -266,8 +266,12 @@
                                             <h3 class="heading-2">
                                                 Property Video
                                             </h3>
-                                            <iframe src="<?=$property_data->video ?>" allowfullscreen=""></iframe>
+                                            <!-- <iframe src="<?=$property_data->video ?>" allowfullscreen=""></iframe> -->
                                             
+                                            <video width="850" height="360" controls>
+                                                    <source src="assets/uploads/properties_videos/<?php echo $property_data->video; ?>" type="video/mp4">
+                                                    Your browser does not support the video tag.
+                                                </video>
                                         </div>
                                     </div>
                                 </div>
@@ -421,13 +425,13 @@
                 <div class="sidebar-right">
                                     <div class="widget advanced-search">
                         <h3 class="sidebar-title">Contact Us</h3>
-                        <form method="Post">
+                        <form method="Post" id="contactform1">
                             <div class="form-group">
-                                <input type="text" name="name" class="form-control" placeholder="Name"
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Name"
                                             aria-label="Full Name">
                             </div>
                             <div class="form-group">
-                                  <input type="email" name="email" class="form-control"
+                                  <input type="email" name="email" id="email" class="form-control"
                                             placeholder="Email Address" aria-label="Email Address">
                             </div>
                             <div class="form-group">
@@ -441,7 +445,7 @@
 
                        
                             <div class="form-group mb-0">
-                                <button class="btn-4 btn-round-3 w-100">Submit</button>
+                                <button type="button" class="btn-4 btn-round-3 w-100" id="sendcontactbtn">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -458,5 +462,63 @@
       <?php $this->load->view('Frontend/temp/footer'); ?>
 
 </body>
+     <script>
+     $(document).on('click','#sendcontactbtn',function(){
 
+        event.preventDefault();
+           $("#contactform1").valid();
+           var email = $("#email").val();
+           var name=$("#name").val();
+            
+           
+
+        if(email != '' && name != ''  ){ // 
+          
+         $.ajax({
+        type:'post',
+        url: '<?php echo base_url("Home/contactus_mail");?>',
+        data: new FormData($("#contactform1")[0]),
+        contentType: false,
+        processData: false, 
+        success:function(resp){
+        var data=$.parseJSON(resp);
+        if(data.status == 'success'){
+        $('#contactform1')[0].reset();
+
+        $.wnoty({
+        type: 'success',
+        message: 'Thank you for contactus!',
+        autohideDelay: 1000,
+        position: 'top-right'
+
+        });
+        // setTimeout(function(){
+        // window.location.href = '<?php echo base_url()?>'+data.url;
+        // },1000);
+         setTimeout(function(){
+            location.reload(true);
+            },2000);
+       }else if(data.status == 'error'){
+      
+              $.wnoty({
+                    type: 'error',
+                    message: data.message,
+                    autohideDelay: 1000,
+                    position: 'top-right'
+
+                    });
+               setTimeout(function(){
+                window.location.href = '<?php echo base_url()?>';
+                },2000);
+        }
+        },
+        });
+        }
+     
+        return false;
+        })
+
+
+
+</script>
 </html>
