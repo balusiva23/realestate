@@ -110,6 +110,8 @@ class Property_model extends CI_Model {
                 if($property->city){
 
                      $city_data = $this->getcitiesbyid($property->city);
+                }else{
+                    $city_data  = '';
                 }
                
             // print_r($city_data->city);
