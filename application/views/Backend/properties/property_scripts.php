@@ -1,7 +1,7 @@
 
      <script>
       //-----------------------------Propwerty images -------------------------------
-      //allowance  
+      //  
        $(document).ready(function(){  
 
 
@@ -554,5 +554,84 @@
 
                });
              });
+
+
+
+  //------------------------------Floor images  -------------------------------
+
+          //get allowance
+       function loadimage(){
+        $(document).ready(function () {
+        $(document).on("click", '.OpenFloorImageModal',function (event) {
+        event.preventDefault();
+        var id = $(this).attr("data-id");  
+
+        if(id != '' ){
+        $.ajax({
+          url: "Get_floor_images?id="+id,
+          type:"GET",
+          dataType:'',
+          data:'data',          
+          success: function(response) {
+            // console.log(response);
+            $('.floortbl').html(response);
+          },
+          error: function(response) {
+            
+          }
+        });
+      }
+      });
+      });
+
+      }
+      loadimage();
+      //delete allowance
+      $(document).ready(function () {
+        $(document).on("click", '.deleteFloorImage',function (event) {
+        event.preventDefault();
+        var id = $(this).attr("data-id");  
+         var row = $(this).closest("tr");
+        if(id != ''  ){
+        $.ajax({
+          url: '<?php echo base_url("dashboard/deletefloor_Image")?>',
+          type:"POST",
+          data: {id:id},          
+          success: function(response) {
+          
+           row.remove();
+           /* $('#AdditionModal').modal('hide');
+            $(".modal-backdrop").remove();*/
+             $.wnoty({
+              type: 'success',
+              message: "Deleted Successfully",
+              autohideDelay: 1000,
+              position: 'top-right'
+
+              });
+          },
+          error: function(response) {
+            
+          }
+        });
+      }
+      });
+      });
+
+
+
+  
+          $(document).ready(function () {
+
+            $(document).on('click', ".OpenFloorImageModal", function (e) {
+              e.preventDefault(e);
+              var id = $(this).attr('data-id');
+             
+             $('#form_images1').find('[name="property_id"]').val(id).end();
+           
+
+               });
+             });
+
 
      </script>

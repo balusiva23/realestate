@@ -76,10 +76,11 @@
                         <th class="center">  Sale or Rent Price </th>
                         <th class="center">  Thumnail </th>
                          <!-- new -->
-                            <th class="center"> Property Images </th>
-                            <th class="center"> Conditions </th>
-                            <th class="center"> Features </th>
-                            <th class="center"> Property Details</th>
+                          <th class="center"> Property Images </th>
+                          <th class="center"> Floor Images </th>
+                          <th class="center"> Conditions </th>
+                          <th class="center"> Features </th>
+                          <th class="center"> Property Details</th>
                          <!-- new -->
                         <th class="center"> Action </th>
                   </tr>
@@ -101,6 +102,9 @@
                                   <td class="center"> <img src="<?php echo base_url(); ?>assets/uploads/properties/thumnail/<?php echo $member->thumnail ?>" alt="" class="img-fluid" style="width: 50px;"></td>
                                  <!-- new -->
                                   <td class="center"> <a href="#" class="OpenImageModal" data-bs-toggle="modal" data-bs-target="#propertyImagemodel" data-id="<?php echo $member->id; ?>">
+                                   <i class="bi bi-plus-circle-fill" style="font-size: 17px;"></i>
+                                    </a> </td> 
+                                    <td class="center"> <a href="#" class="OpenFloorImageModal" data-bs-toggle="modal" data-bs-target="#floorImagemodel" data-id="<?php echo $member->id; ?>">
                                    <i class="bi bi-plus-circle-fill" style="font-size: 17px;"></i>
                                     </a> </td>
                                   <td class="center"><a href="#" class="Openconditionsmodal" data-bs-toggle="modal" data-bs-target="#conditionsmodal" data-id="<?php echo $member->id; ?>">
@@ -188,6 +192,54 @@
 	      </div>
 	    </div>
 	  </div> 
+      <!-- Property Image  -->
+      <!-- Add floor Image-->
+  <div class="modal fade" id="floorImagemodel" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"> Floor Images</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+             <form action="#" id="form_images1" class="form-horizontal" method="post" enctype="multipart/form-data">
+        
+               <div class="modal-body">
+                      <!-- <div class="">
+                             <label for="inputName" class="form-label">Property Image  <span class="error"> * <span  style="color:black;font-size: 11px;">You Can Upload Multiple Images(MAX 5)</span></span></label><br>
+                           <input type="file" name="property_img[]" id="property_img"  class="" multiple>
+                       </div>
+               -->
+             <div class="">
+                <!-- table-responsive -->
+                
+              <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col" style="width: 10%;">Sno</th>
+                  <th scope="col" style="width:75%%">Image</th>
+                   <th scope="col" style="width: 10%;">Action</th>
+                </tr>
+              </thead>
+              <tbody class="floortbl">
+       
+              </tbody>
+            </table>
+ 
+              </div>
+            
+            </div>
+          
+         
+          <div class="modal-footer">
+            <input type="hidden" name="id">
+            <input type="hidden" name="property_id">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-primary " id="add_image">Save</button> -->
+          </div>
+        </form>
+        </div>
+      </div>
+    </div> 
       <!-- Property Image  -->
     
 

@@ -76,14 +76,14 @@
                   </div>
                   <div class="col-sm-4">
                   	 <label for="inputEmail" class="col-form-label">Type</label><span class="error"> * </span>
-                      <input type="text" class="form-control" name="propertyType" id="propertyType" required>
-          <!--         <select class="form-select" name="propertyType" id="propertyType" required>
+                      <!-- <input type="text" class="form-control" name="propertyType" id="propertyType" required> -->
+                  <select class="form-select" name="propertyType" id="propertyType" required>
                         <option value="Apartment">Apartment</option>
                         <option value="House">House</option>
                         <option value="Commercial">Commercial</option>
                         <option value="Garage">Garage</option>
-                        <option value="Lot">Lot</option>
-                    </select> -->
+                        <option value="Flat">Flat</option>
+                    </select>
                   </div>
             
                 </div>     
@@ -138,6 +138,10 @@
                   	 <label for="inputText" class="col-form-label">Address</label>
                     <input type="text" class="form-control" name="address" id="address">
                   </div> 
+                   <div class="col-sm-4">
+                     <label for="inputText" class="col-form-label">Area</label>
+                    <input type="text" class="form-control" name="area" id="area" >
+                  </div> 
                   <div class="col-sm-4">
                   	 <label for="inputText" class="col-form-label">City</label>
                     <!-- <input type="text" class="form-control" name="city" id="city"> -->
@@ -174,7 +178,7 @@
                   
                    <div class="col-sm-4">
                   	<label for="inputName" class="col-form-label">Image<span class="error">  </span></label><br>
-	                <input type="file"  class="form-control" name="floorimg" id="floorimg">
+	                <input type="file"  class="form-control" name="floorimg[]" id="floorimg" multiple>
                   </div> 
                  
                </div> 

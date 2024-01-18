@@ -1096,6 +1096,7 @@ class Dashboard extends CI_Controller {
         // ---------------------------Properties --------------------------//
 
         public function add_properties() {
+
         // Check if the 'thumnail' file is uploaded
         if ($_FILES['thumnail']['name']) {
             $thumnail_file_name = $_FILES['thumnail']['name'];
@@ -1134,43 +1135,94 @@ class Dashboard extends CI_Controller {
             return;
         }
 
-        // Check if the 'floorimg' file is uploaded (optional)
-        if ($_FILES['floorimg']['name']) {
-            $floorimg_file_name = $_FILES['floorimg']['name'];
-            // Handle file upload and validation for 'floorimg' here (similar to 'thumnail')
-             $file_name = $_FILES['floorimg']['name'];
-            $fileSize = $_FILES["floorimg"]["size"]/1024;
-            $fileType = $_FILES["floorimg"]["type"];
-            $new_file_name='';
-            $new_file_name .= $file_name;
+        // // Check if the 'floorimg' file is uploaded (optional)
+        // if ($_FILES['floorimg']['name']) {
+        //     $floorimg_file_name = $_FILES['floorimg']['name'];
+        //     // Handle file upload and validation for 'floorimg' here (similar to 'thumnail')
+        //      $file_name = $_FILES['floorimg']['name'];
+        //     $fileSize = $_FILES["floorimg"]["size"]/1024;
+        //     $fileType = $_FILES["floorimg"]["type"];
+        //     $new_file_name='';
+        //     $new_file_name .= $file_name;
 
-            $config = array(
-                'file_name' => $new_file_name,
-                'upload_path' => "./assets/uploads/properties",
-                'allowed_types' => "gif|jpg|png|jpeg|ico",
-                'overwrite' => TRUE,
-                'max_size' => "50720000"
-            );
-            //create directory
-              if(!is_dir($config['upload_path'])) mkdir($config['upload_path'], 0777, TRUE);
+        //     $config = array(
+        //         'file_name' => $new_file_name,
+        //         'upload_path' => "./assets/uploads/properties",
+        //         'allowed_types' => "gif|jpg|png|jpeg|ico",
+        //         'overwrite' => TRUE,
+        //         'max_size' => "50720000"
+        //     );
+        //     //create directory
+        //       if(!is_dir($config['upload_path'])) mkdir($config['upload_path'], 0777, TRUE);
     
-            $this->load->library('Upload', $config);
-            $this->upload->initialize($config);                
-            if (!$this->upload->do_upload('floorimg')) {
-                echo $this->upload->display_errors();
-                #redirect("notice/All_notice");
-            }else {
+        //     $this->load->library('Upload', $config);
+        //     $this->upload->initialize($config);                
+        //     if (!$this->upload->do_upload('floorimg')) {
+        //         echo $this->upload->display_errors();
+        //         #redirect("notice/All_notice");
+        //     }else {
            
-              $file_data = $this->upload->data();
+        //       $file_data = $this->upload->data();
 
-            // If the upload is successful, get the file name
-            $floorimg_url = $file_data['file_name'];
-          }
-        } else {
-            // If 'floorimg' is not uploaded, set it to an empty string or handle accordingly
-            $floorimg_url = '';
+        //     // If the upload is successful, get the file name
+        //     $floorimg_url = $file_data['file_name'];
+        //   }
+        // } else {
+        //     // If 'floorimg' is not uploaded, set it to an empty string or handle accordingly
+        //     $floorimg_url = '';
+        // }
+  //New floor image
+if (!empty($_FILES['floorimg']['name'][0])) {
+    $floorimg_file_names = $_FILES['floorimg']['name'];
+    $floorimg_urls = array();
+
+    foreach ($floorimg_file_names as $key => $floorimg_file_name) {
+        // Handle file upload and validation for each 'floorimg' file
+        $file_name = $floorimg_file_name;
+        $fileSize = $_FILES["floorimg"]["size"][$key] / 1024;
+        $fileType = $_FILES["floorimg"]["type"][$key];
+        $new_file_name = '';
+        $new_file_name .= $file_name;
+
+        $config = array(
+            'file_name' => $new_file_name,
+            'upload_path' => "./assets/uploads/properties/floor_image",
+            'allowed_types' => "gif|jpg|png|jpeg|ico",
+            'overwrite' => TRUE,
+            'max_size' => "50720000"
+        );
+
+        // create directory
+        if (!is_dir($config['upload_path'])) {
+            mkdir($config['upload_path'], 0777, TRUE);
         }
 
+        // Set the configuration for the current file
+        $_FILES['uploaded_file']['name'] = $floorimg_file_name;
+        $_FILES['uploaded_file']['type'] = $_FILES["floorimg"]["type"][$key];
+        $_FILES['uploaded_file']['tmp_name'] = $_FILES["floorimg"]["tmp_name"][$key];
+        $_FILES['uploaded_file']['error'] = $_FILES["floorimg"]["error"][$key];
+        $_FILES['uploaded_file']['size'] = $_FILES["floorimg"]["size"][$key];
+
+        // Load and initialize the Upload library
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        if (!$this->upload->do_upload('uploaded_file')) {
+            echo $this->upload->display_errors();
+            exit;
+        } else {
+            $file_data = $this->upload->data();
+            // If the upload is successful, get the file name
+            $floorimg_urls[] = $file_data['file_name'];
+        }
+    }
+} else {
+    // If 'floorimg' is not uploaded, set it to an empty array or handle accordingly
+    $floorimg_urls = array();
+}
+
+  //New floor image
 
   //new video 
          // Check if the 'video' file is uploaded (optional)
@@ -1230,6 +1282,7 @@ class Dashboard extends CI_Controller {
             'propertyPrice' => $this->input->post('propertyPrice'),
             'thumnail' => $thumnail_img_url,
             'address' => $this->input->post('address'),
+            'area' => $this->input->post('area'),
             'city' => $this->input->post('city'),
             'state' => $this->input->post('state'),
             'pincode' => $this->input->post('pincode'),
@@ -1245,6 +1298,41 @@ class Dashboard extends CI_Controller {
         // Perform the database insert
         $result = $this->Common_model->insert($property_data, $table);
 
+
+
+        //-----------------New floor image
+        // After inserting the property data into the 'properties' table, get the last inserted ID
+        $property_id = $this->db->insert_id();
+        //$property_id = $id;
+
+        // // Check if there are existing records for the current property_id in 'floor_images'
+        // $this->db->where('property_id', $property_id);
+        // $existing_floorimg = $this->db->get('floor_images')->result();
+
+        // // If there are existing records, delete them
+        // if (!empty($existing_floorimg)) {
+        //     foreach ($existing_floorimg as $existing_img) {
+        //         unlink('./assets/uploads/properties/floor_image/' . $existing_img->image_path);
+        //     }
+
+        //     $this->db->where('property_id', $property_id);
+        //     $this->db->delete('floor_images');
+        // }
+
+        // Save 'floorimg' images in the 'floor_images' table
+        foreach ($floorimg_urls as $floorimg_url) {
+            $floorimg_data = array(
+                'property_id' => $property_id,
+                'image_path' => $floorimg_url
+            );
+
+            $floorimg_table = 'floor_images';
+
+            // Insert 'floorimg' data into the 'floor_images' table
+            $this->db->insert($floorimg_table, $floorimg_data);
+        }
+        //-----------------New floor image
+
         if ($result) {
             // Success: Property inserted
             echo json_encode(array('status' => 'success', 'message' => 'Property Added successfully'));
@@ -1254,6 +1342,8 @@ class Dashboard extends CI_Controller {
         }
     }      
      public function update_properties() {
+
+       // print_r($_FILES['floorimg']['name']);die();
         // Check if the 'thumnail' file is uploaded
         if ($_FILES['thumnail']['name']) {
             $thumnail_file_name = $_FILES['thumnail']['name'];
@@ -1293,42 +1383,95 @@ class Dashboard extends CI_Controller {
             $thumnail_img_url = '';
         }
 
-        // Check if the 'floorimg' file is uploaded (optional)
-        if ($_FILES['floorimg']['name']) {
-            $floorimg_file_name = $_FILES['floorimg']['name'];
-            // Handle file upload and validation for 'floorimg' here (similar to 'thumnail')
-             $file_name = $_FILES['floorimg']['name'];
-            $fileSize = $_FILES["floorimg"]["size"]/1024;
-            $fileType = $_FILES["floorimg"]["type"];
-            $new_file_name='';
-            $new_file_name .= $file_name;
+        // // Check if the 'floorimg' file is uploaded (optional)
+        // if ($_FILES['floorimg']['name']) {
+        //     $floorimg_file_name = $_FILES['floorimg']['name'];
+        //     // Handle file upload and validation for 'floorimg' here (similar to 'thumnail')
+        //      $file_name = $_FILES['floorimg']['name'];
+        //     $fileSize = $_FILES["floorimg"]["size"]/1024;
+        //     $fileType = $_FILES["floorimg"]["type"];
+        //     $new_file_name='';
+        //     $new_file_name .= $file_name;
 
-            $config = array(
-                'file_name' => $new_file_name,
-                'upload_path' => "./assets/uploads/properties",
-                'allowed_types' => "gif|jpg|png|jpeg|ico",
-                'overwrite' => TRUE,
-                'max_size' => "50720000"
-            );
-            //create directory
-              if(!is_dir($config['upload_path'])) mkdir($config['upload_path'], 0777, TRUE);
+        //     $config = array(
+        //         'file_name' => $new_file_name,
+        //         'upload_path' => "./assets/uploads/properties",
+        //         'allowed_types' => "gif|jpg|png|jpeg|ico",
+        //         'overwrite' => TRUE,
+        //         'max_size' => "50720000"
+        //     );
+        //     //create directory
+        //       if(!is_dir($config['upload_path'])) mkdir($config['upload_path'], 0777, TRUE);
     
-            $this->load->library('Upload', $config);
-            $this->upload->initialize($config);                
-            if (!$this->upload->do_upload('floorimg')) {
-                echo $this->upload->display_errors();
-                #redirect("notice/All_notice");
-            }else {
+        //     $this->load->library('Upload', $config);
+        //     $this->upload->initialize($config);                
+        //     if (!$this->upload->do_upload('floorimg')) {
+        //         echo $this->upload->display_errors();
+        //         #redirect("notice/All_notice");
+        //     }else {
            
-              $file_data = $this->upload->data();
+        //       $file_data = $this->upload->data();
 
-            // If the upload is successful, get the file name
-            $floorimg_url = $file_data['file_name'];
-          }
-        } else {
-            // If 'floorimg' is not uploaded, set it to an empty string or handle accordingly
-            $floorimg_url = '';
+        //     // If the upload is successful, get the file name
+        //     $floorimg_url = $file_data['file_name'];
+        //   }
+        // } else {
+        //     // If 'floorimg' is not uploaded, set it to an empty string or handle accordingly
+        //     $floorimg_url = '';
+        // }
+
+        //New floor image
+if (!empty($_FILES['floorimg']['name'][0])) {
+    $floorimg_file_names = $_FILES['floorimg']['name'];
+    $floorimg_urls = array();
+
+    foreach ($floorimg_file_names as $key => $floorimg_file_name) {
+        // Handle file upload and validation for each 'floorimg' file
+        $file_name = $floorimg_file_name;
+        $fileSize = $_FILES["floorimg"]["size"][$key] / 1024;
+        $fileType = $_FILES["floorimg"]["type"][$key];
+        $new_file_name = '';
+        $new_file_name .= $file_name;
+
+        $config = array(
+            'file_name' => $new_file_name,
+            'upload_path' => "./assets/uploads/properties/floor_image",
+            'allowed_types' => "gif|jpg|png|jpeg|ico",
+            'overwrite' => TRUE,
+            'max_size' => "50720000"
+        );
+
+        // create directory
+        if (!is_dir($config['upload_path'])) {
+            mkdir($config['upload_path'], 0777, TRUE);
         }
+
+        // Set the configuration for the current file
+        $_FILES['uploaded_file']['name'] = $floorimg_file_name;
+        $_FILES['uploaded_file']['type'] = $_FILES["floorimg"]["type"][$key];
+        $_FILES['uploaded_file']['tmp_name'] = $_FILES["floorimg"]["tmp_name"][$key];
+        $_FILES['uploaded_file']['error'] = $_FILES["floorimg"]["error"][$key];
+        $_FILES['uploaded_file']['size'] = $_FILES["floorimg"]["size"][$key];
+
+        // Load and initialize the Upload library
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        if (!$this->upload->do_upload('uploaded_file')) {
+            echo $this->upload->display_errors();
+            exit;
+        } else {
+            $file_data = $this->upload->data();
+            // If the upload is successful, get the file name
+            $floorimg_urls[] = $file_data['file_name'];
+        }
+    }
+} else {
+    // If 'floorimg' is not uploaded, set it to an empty array or handle accordingly
+    $floorimg_urls = array();
+}
+
+  //New floor image
 
          //new video 
          // Check if the 'video' file is uploaded (optional)
@@ -1388,6 +1531,7 @@ class Dashboard extends CI_Controller {
             'propertyPrice' => $this->input->post('propertyPrice'),
            // 'thumnail' => $thumnail_img_url,
             'address' => $this->input->post('address'),
+            'area' => $this->input->post('area'),
             'city' => $this->input->post('city'),
             'state' => $this->input->post('state'),
             'pincode' => $this->input->post('pincode'),
@@ -1408,6 +1552,40 @@ class Dashboard extends CI_Controller {
                                
         $id = $this->input->post('id');
         $result = $this->Common_model->update($property_data,$table,$id );
+
+
+        //-----------------New floor image
+        // After inserting the property data into the 'properties' table, get the last inserted ID
+        //$property_id = $this->db->insert_id();
+        $property_id = $id;
+
+        // // Check if there are existing records for the current property_id in 'floor_images'
+        // $this->db->where('property_id', $property_id);
+        // $existing_floorimg = $this->db->get('floor_images')->result();
+
+        // // If there are existing records, delete them
+        // if (!empty($existing_floorimg)) {
+        //     foreach ($existing_floorimg as $existing_img) {
+        //         unlink('./assets/uploads/properties/floor_image/' . $existing_img->image_path);
+        //     }
+
+        //     $this->db->where('property_id', $property_id);
+        //     $this->db->delete('floor_images');
+        // }
+
+        // Save 'floorimg' images in the 'floor_images' table
+        foreach ($floorimg_urls as $floorimg_url) {
+            $floorimg_data = array(
+                'property_id' => $property_id,
+                'image_path' => $floorimg_url
+            );
+
+            $floorimg_table = 'floor_images';
+
+            // Insert 'floorimg' data into the 'floor_images' table
+            $this->db->insert($floorimg_table, $floorimg_data);
+        }
+        //-----------------New floor image
 
         if ($result) {
             // Success: Property inserted
@@ -1542,11 +1720,45 @@ class Dashboard extends CI_Controller {
         $i++; }
         }
         }
-       }
-    public function deleteImage() {
+       } 
+   public function deleteImage() {
         $id = $this->input->post('id');
         // Call the model method to delete the product by ID
           $table = 'property_images';
+        $result = $this->Common_model->delete($id,$table);
+
+        if ($result) {
+        
+            echo json_encode(array('status' => 'success','message' => 'Image deleted successfully'));
+        } else {
+         
+            echo json_encode(array('status' => 'error', 'message' => 'Image deletion failed'));
+        }
+    }
+
+       public function Get_floor_images(){
+        if($this->session->userdata('user_login_access') != False) {
+        $id = $this->input->get('id');
+      
+        $getdata = $this->Common_model->getfloors($id);
+        if($getdata){
+        $i = 1;
+        foreach($getdata as $value){
+        echo' <tr>
+            <td scope="row">'.$i.'</td>
+            <td><img src="'.base_url().'assets/uploads/properties/floor_image/'.$value->image_path.'" alt="" class="img-fluid mt-2 text-center" style="width: 100px;height:50px"></td>
+       
+            <td><a title="Delete" class=" deleteFloorImage" data-id="'.$value->id.'">   <i class="bi bi-trash-fill"></i></a></td>
+        </tr>';
+
+        $i++; }
+        }
+        }
+       }
+    public function deletefloor_Image() {
+        $id = $this->input->post('id');
+        // Call the model method to delete the product by ID
+          $table = 'floor_images';
         $result = $this->Common_model->delete($id,$table);
 
         if ($result) {

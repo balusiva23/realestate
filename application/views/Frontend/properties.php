@@ -124,10 +124,29 @@
                            ?>
 
 
-                        <!-- <input id="checkbox1" type="checkbox" class="common_selector sale" value="1" name="sale">
-                        <label for="checkbox1">
-                           For Sale
-                        </label> -->
+                              <!-- Area -->
+                        <h3 class="sidebar-title">Filter by Area</h3>
+
+
+                         <?php 
+                        // print_r($get_properties);
+                                $uniqueNames = array_unique(array_column($get_properties, 'area'));
+                                 // print_r($uniqueNames);
+                                foreach ($uniqueNames as $area) {  ?>
+
+                                     <?php if (!empty($area)) { ?>
+                                 <div class="checkbox checkbox-theme checkbox-circle">
+                       
+                        <input id="areaCheckbok_<?= $area ?>" type="checkbox" class="common_selector area"  name="area" value="<?= $area; ?>">
+                        <label for="areaCheckbok_<?= $area ?>">
+                          <?= $area; ?>
+                        </label>
+                          </div> 
+                         <?php } } ?>
+                    
+
+
+                     
 
                      
                    
@@ -241,13 +260,14 @@ $(document).ready(function(){
         var rent = get_filter('rent');
         var lease = get_filter('lease');
         var city = get_filter('city');
+        var area = get_filter('area');
         //console.log(city)
         $.ajax({
             url:"<?php echo base_url(); ?>Home/fetch_data/"+page,
             method:"POST",
             dataType:"JSON",
             //data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand, ram:ram, storage:storage},
-            data:{action:action, sale:sale, rent:rent,lease:lease,city:city},
+            data:{action:action, sale:sale, rent:rent,lease:lease,city:city,area:area},
             success:function(data)
             {
                  $('.filter_data').html(data.product_list);

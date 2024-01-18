@@ -230,6 +230,15 @@ class Common_model extends CI_Model {
         $this->db->where('isActive', '1');
         $query = $this->db->get('cities');
         return $query->result();
+    } 
+    //cities
+        public function getfloors($id)
+    {
+     
+        $this->db->order_by('id', 'asc');
+       $this->db->where(array('isActive'=> '1','property_id'=>$id));
+        $query = $this->db->get('floor_images');
+        return $query->result();
     }
 
 }

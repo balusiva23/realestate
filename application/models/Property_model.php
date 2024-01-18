@@ -35,7 +35,7 @@ class Property_model extends CI_Model {
 
     // New -----------------------------
 
-    function make_query($sale, $rent,$lease,$city)
+    function make_query($sale, $rent,$lease,$city,$area)
     {
         $query = "
         SELECT * FROM properties 
@@ -57,7 +57,7 @@ class Property_model extends CI_Model {
         //      AND propertyStatus IN('".$storage_filter."')
         //     ";
         // }
-        if (isset($sale) || isset($rent) || isset($lease) || isset($city)) {
+        if (isset($sale) || isset($rent) || isset($lease) || isset($city) || isset($area)) {
             $conditions = [];
 
             if (isset($sale)) {
@@ -79,6 +79,15 @@ class Property_model extends CI_Model {
                 $conditions[] = "city IN ('" . $storage_filter . "')";
             }
 
+ 
+
+
+            if (isset($area)) {
+                $storage_filter = implode("','", $area);
+                $conditions[] = "area IN ('" . $storage_filter . "')";
+               // $conditions[] = "area IN ('" . $storage_filter . "')";
+            }
+
             $query .= " AND (" . implode(" OR ", $conditions) . ")";
          }
         //   if(isset($city))
@@ -92,17 +101,17 @@ class Property_model extends CI_Model {
     }
 
   //  function fetch_data($limit, $start, $minimum_price, $maximum_price, $brand, $ram, $storage)
-    function fetch_data($limit, $start,$sale, $rent,$lease,$city)
+    function fetch_data($limit, $start,$sale, $rent,$lease,$city,$area)
     {
         //$query = $this->make_query($minimum_price, $maximum_price, $brand, $ram, $storage);
-        $query = $this->make_query($sale, $rent,$lease,$city);
+        $query = $this->make_query($sale, $rent,$lease,$city,$area);
 
         $query .= ' LIMIT '.$start.', ' . $limit;
 
         $data = $this->db->query($query);
 
         $output = '';
-        //print_r($query);
+       // print_r($query);
         if($data->num_rows() > 0)
         {
             foreach($data->result() as $property)
@@ -110,8 +119,10 @@ class Property_model extends CI_Model {
                 if($property->city){
 
                      $city_data = $this->getcitiesbyid($property->city);
+                     $city_name = $city_data->city;
                 }else{
                     $city_data  = '';
+                    $city_name  = '';
                 }
                
             // print_r($city_data->city);
@@ -152,7 +163,7 @@ class Property_model extends CI_Model {
                             </h1>
                             <div class="location">
                                 <a href="'.base_url().'SingleProperty?I='.$property->id.'">
-                                    <i class="fa fa-map-marker"></i>'.$property->address.' , '.$city_data->city.'
+                                    <i class="fa fa-map-marker"></i>'.$property->address.' , '.$city_name.'
                                 </a>
                             </div>
                
@@ -180,10 +191,10 @@ class Property_model extends CI_Model {
     }
 
    // function count_all($minimum_price, $maximum_price, $brand, $ram, $storage)
-    function count_all($sale, $rent,$lease,$city)
+    function count_all($sale, $rent,$lease,$city,$area)
     {
         //$query = $this->make_query($minimum_price, $maximum_price, $brand, $ram, $storage);
-        $query = $this->make_query($sale, $rent,$lease,$city);
+        $query = $this->make_query($sale, $rent,$lease,$city,$area);
         $data = $this->db->query($query);
         return $data->num_rows();
     }

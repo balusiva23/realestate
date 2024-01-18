@@ -74,6 +74,9 @@ class Home extends CI_Controller {
 	{
 		 //cities
          $this->data['get_cities'] = $this->Common_model->getcities();
+
+         //properties
+        $this->data['get_properties'] = $this->Common_model->getProperties();
 		$this->load->view('Frontend/properties',$this->data);
 	}
 
@@ -90,11 +93,12 @@ class Home extends CI_Controller {
 		$rent = $this->input->post('rent');
 		$lease = $this->input->post('lease');
 		$city = $this->input->post('city');
+		$area = $this->input->post('area');
 		$this->load->library("pagination");
 		$config = array();
 		$config["base_url"] = "#";
 		//$config["total_rows"] = $this->Property_model->count_all($minimum_price, $maximum_price, $brand, $ram, $storage);
-		$config["total_rows"] = $this->Property_model->count_all($sale, $rent,$lease,$city);
+		$config["total_rows"] = $this->Property_model->count_all($sale, $rent,$lease,$city,$area);
 		$config["per_page"] = 4;
 		$config["uri_segment"] = 3;
 		$config["use_page_numbers"] = TRUE;
@@ -127,7 +131,7 @@ class Home extends CI_Controller {
 		$output = array(
 			'pagination_link'		=>	$this->pagination->create_links(),
 			//'product_list'			=>	$this->Property_model->fetch_data($config["per_page"], $start, $minimum_price, $maximum_price, $brand, $ram, $storage)
-			'product_list'			=>	$this->Property_model->fetch_data($config["per_page"], $start,$sale, $rent,$lease,$city)
+			'product_list'			=>	$this->Property_model->fetch_data($config["per_page"], $start,$sale, $rent,$lease,$city,$area)
 		);
 		echo json_encode($output);
 	}
@@ -141,6 +145,9 @@ class Home extends CI_Controller {
 			$this->data['properties_details'] = $this->Common_model->Get_properties_details($id);
 			$this->data['properties_Conditions'] = $this->Common_model->Get_properties_Conditions($id);
 			$this->data['properties_features'] = $this->Common_model->Get_properties_features($id);
+
+			$this->data['get_floors'] = $this->Common_model->getfloors($id);
+         // print_r( $this->data['get_floors']);die();
 
 		$this->load->view('Frontend/single-property',$this->data);
 	}

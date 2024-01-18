@@ -73,11 +73,7 @@
                     <!-- Properties slider section start -->
                     <div class="properties-slider-section">
                         <div class="slider slider-for">
-                           <!--  <div><img src="<?php echo base_url(); ?>assets/web/img/properties/properties-1.jpg" class="w-100 img-fluid" alt="photo"></div>
-                            <div><img src="<?php echo base_url(); ?>assets/web/img/properties/properties-2.jpg" class="w-100 img-fluid" alt="photo"></div>
-                            <div><img src="<?php echo base_url(); ?>assets/web/img/properties/properties-3.jpg" class="w-100 img-fluid" alt="photo"></div>
-                            <div><img src="<?php echo base_url(); ?>assets/web/img/properties/properties-4.jpg" class="w-100 img-fluid" alt="photo"></div>
-                            <div><img src="<?php echo base_url(); ?>assets/web/img/properties/properties-4.jpg" class="w-100 img-fluid" alt="photo"></div> -->
+                           
                             <?php   if($properties_images){
                              $i = 1;
                              foreach($properties_images as $value){ ?>
@@ -106,18 +102,25 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Description</button>
                             </li>
+                              <?php   if($get_floors){ ?>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Floor Plans</button>
                             </li>
+                        <?php }  ?>
+                        <!-- $property_data->location -->
+                          <?php   if($properties_details){ ?>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Details</button>
                             </li>
+                              <?php  }  if($property_data->location){ ?>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="contact-tab-5" data-bs-toggle="tab" data-bs-target="#contact-5" type="button" role="tab" aria-controls="contact-5" aria-selected="false">Location</button>
                             </li>
+                              <?php  } if($property_data->video){ ?>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="contact-tab-6" data-bs-toggle="tab" data-bs-target="#contact-6" type="button" role="tab" aria-controls="contact-6" aria-selected="false">Video</button>
                             </li>
+                            <?php }  ?>
                            <!--  <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="contact-tab-4" data-bs-toggle="tab" data-bs-target="#contact-4" type="button" role="tab" aria-controls="contact-4" aria-selected="false">Similar Properties</button>
                             </li> -->
@@ -130,9 +133,7 @@
                                             <h3 class="heading-2">
                                                 Description
                                             </h3>
-                                           <!--  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In fermentum facilisis massa, a consequat purus viverra a. Aliquam pellentesque nibh et nibh feugiat gravida. Maecenas ultricies, diam vitae semper placerat, velit risus accumsan nisl, eget tempor lacus est vel nunc. Proin accumsan elit sed neque euismod fringilla. Curabitur lobortis nunc velit, et fermentum urna dapibus non. Vivamus magna lorem, elementum id gravida ac, laoreet tristique augue. Maecenas dictum lacus eu nunc porttitor, ut hendrerit arcu efficitur.
-
-                                                Aliquam ultricies nunc porta metus interdum mollis. Donec porttitor libero augue, vehicula tincidunt lectus placerat a. Sed tincidunt dolor non sem dictum dignissim. Nulla vulputate orci felis, ac ornare purus ultricies a. Fusce euismod magna orci, sit amet aliquam turpis dignissim ac. In at tortor at ligula pharetra sollicitudin. Sed tincidunt, purus eget laoreet elementum, felis est pharetra ante, tincidunt feugiat libero enim sed risus. Sed at leo sit amet mi bibendum aliquam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent cursus varius odio, non faucibus dui. Nunc vehicula lectus sed velit suscipit aliquam vitae eu ipsum. adipiscing elit.</p> -->
+                                        
                                                 <p><?=$property_data->description ?></p>
                                         </div>
                                     </div>
@@ -143,23 +144,42 @@
                                     <div class="accordion-item">
                                         <div class="floor-plans mb-50">
                                             <h3 class="heading-2">Floor Plans</h3>
-                                           <!--  <table>
-                                                <tbody><tr>
-                                                    <td><strong>Size</strong></td>
-                                                    <td><strong>Rooms</strong></td>
-                                                    <td><strong>Bathrooms</strong></td>
-                                                    <td><strong>Garage</strong></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1600</td>
-                                                    <td>3</td>
-                                                    <td>2</td>
-                                                    <td>1</td>
-                                                </tr>
-                                                </tbody>
-                                            </table> -->
-                                            <!-- <img src="<?php echo base_url(); ?>assets/web/img/floor-plans.png" alt="floor-plans" class="img-fluid w-100"> -->
-                                            <img src="<?php echo base_url(); ?>assets/uploads/properties/<?php echo $property_data->floorimg ?>" alt="floor-plans" class="img-fluid w-100">
+                                      
+                                       <!-- <img src="<?php echo base_url(); ?>assets/uploads/properties/<?php echo $property_data->floorimg ?>" alt="floor-plans" class="img-fluid w-100"> -->
+                                       <!--   856 / 434    -->
+
+                                 <?php
+                                if ($get_floors) {
+                                  //  print_r($get_floors);die();
+                                    $i = 0; // Counter for carousel items
+                                    ?>
+                                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-indicators">
+                                            <?php foreach (array_reverse($get_floors) as $key => $value) { ?>
+                                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?php echo $key; ?>" class="<?php echo ($key == 0) ? 'active' : ''; ?>" aria-current="<?php echo ($key == 0) ? 'true' : 'false'; ?>" aria-label="Slide <?php echo $key + 1; ?>"></button>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="carousel-inner">
+                                            <?php foreach (array_reverse($get_floors) as $value) { ?>
+                                                <div class="carousel-item <?php echo ($i == 0) ? 'active' : ''; ?>">
+                                                    <img src="<?php echo base_url(); ?>assets/uploads/properties/floor_image/<?php echo $value->image_path ?>" alt="floor-plans" class="img-fluid w-100" style="height: 440px;">
+                                                </div>
+                                                <?php
+                                                $i++;
+                                            } ?>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style="width: 65px; height: 65px; line-height: 65px; z-index: 100; background: #15151530; top: 45%; margin: 10px; color: #fff; opacity: 1; border-radius: 100px;">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                <?php } ?>
+
+<!--  -->
                                         </div>
                                     </div>
                                 </div>
@@ -184,63 +204,7 @@
                                                     </ul>
                                                 </div>
                                                      <?php $i++; } } ?>
-                                             <!--    <div class="col-md-4 col-sm-6">
-                                                    <ul>
-                                                        <li>
-                                                            <strong>Property Id:</strong>215
-                                                        </li>
-                                                        <li>
-                                                            <strong>Price:</strong>$1240/ Month
-                                                        </li>
-                                                        <li>
-                                                            <strong>Property Type:</strong>House
-                                                        </li>
-                                                        <li>
-                                                            <strong>Bathrooms:</strong>3
-                                                        </li>
-                                                        <li>
-                                                            <strong>Bathrooms:</strong>2
-                                                        </li>
-                                                    </ul>
-                                                </div> -->
-                                              <!--   <div class="col-md-4 col-sm-6">
-                                                    <ul>
-                                                        <li>
-                                                            <strong>Property Lot Size:</strong>800 ft2
-                                                        </li>
-                                                        <li>
-                                                            <strong>Land area:</strong>230 ft2
-                                                        </li>
-                                                        <li>
-                                                            <strong>Year Built:</strong>2018
-                                                        </li>
-                                                        <li>
-                                                            <strong>Available From:</strong>2018
-                                                        </li>
-                                                        <li>
-                                                            <strong>Garages:</strong>2
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-md-4 col-sm-6">
-                                                    <ul>
-                                                        <li>
-                                                            <strong>Sold:</strong>Yes
-                                                        </li>
-                                                        <li>
-                                                            <strong>City:</strong>Usa
-                                                        </li>
-                                                        <li>
-                                                            <strong>Parking:</strong>Yes
-                                                        </li>
-                                                        <li>
-                                                            <strong>Property Owner:</strong>Sohel Rana
-                                                        </li>
-                                                        <li>
-                                                            <strong>Zip Code: </strong>2451
-                                                        </li>
-                                                    </ul>
-                                                </div> -->
+                                            
                                             </div>
                                         </div>
                                     </div>
@@ -301,36 +265,7 @@
                                     </ul>
                                 </div>
                                  <?php $i++; } } ?>
-                         <!--    <div class="col-md-4 col-sm-4 col-xs-12">
-                                <ul class="condition">
-                                    <li>
-                                        <i class="flaticon-furniture"></i>2 Bedroom
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-holidays"></i>Bathroom
-                                    </li>
-                                </ul>
-                            </div> -->
-                           <!--  <div class="col-md-4 col-sm-4 col-xs-12">
-                                <ul class="condition">
-                                    <li>
-                                        <i class="flaticon-square"></i>4800 sq ft
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-monitor"></i>TV Lounge
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                <ul class="condition">
-                                    <li>
-                                        <i class="flaticon-vehicle"></i>1 Garage
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-window"></i>Balcony
-                                    </li>
-                                </ul>
-                            </div> -->
+                       
                         </div>
                     </div>
                     <!-- Properties condition end -->
@@ -357,63 +292,7 @@
                                     </ul>
                                 </div>
                                                      <?php $i++; } } ?>
-                        <!--     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                <ul class="amenities">
-                                    <li>
-                                        <i class="flaticon-technology"></i>Air conditioning
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-window"></i>Balcony
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-beach"></i>Pool
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-holidays-1"></i>Room service
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-people-2"></i>Gym
-                                    </li>
-                                </ul>
-                            </div> -->
-                         <!--    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                <ul class="amenities">
-                                    <li>
-                                        <i class="flaticon-connection"></i>Wifi
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-vehicle"></i>Parking
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-furniture"></i>Double Bed
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-comedy"></i>Home Theater
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-technology-3"></i>Electric
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                <ul class="amenities">
-                                    <li>
-                                        <i class="flaticon-technology-1"></i>Telephone
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-people-3"></i>Jacuzzi
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-clock"></i>Alarm
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-vehicle"></i>Garage
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-lock"></i>Security
-                                    </li>
-                                </ul>
-                            </div> -->
+                        
                         </div>
                     </div>
                     <!-- Properties amenities end -->
@@ -460,9 +339,15 @@
 <!-- Footer start -->
 
       <?php $this->load->view('Frontend/temp/footer'); ?>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
      <script>
+
+       var myCarousel = new bootstrap.Carousel(document.getElementById('carouselExampleIndicators'), {
+        interval: 2000 // Set to 2000 milliseconds (2 seconds)
+    });
+         
      $(document).on('click','#sendcontactbtn',function(){
 
         event.preventDefault();

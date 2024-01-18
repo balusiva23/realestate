@@ -81,7 +81,7 @@
                         <option value="House" <?php echo ($data->propertyType == 'House') ? 'selected' : ''  ?>>House</option>
                         <option value="Commercial" <?php echo ($data->propertyType == 'Commercial') ? 'selected' : ''  ?>>Commercial</option>
                         <option value="Garage" <?php echo ($data->propertyType == 'Garage') ? 'selected' : ''  ?>>Garage</option>
-                        <option value="Lot" <?php echo ($data->propertyType == 'Lot') ? 'selected' : ''  ?>>Lot</option>
+                        <option value="Flat" <?php echo ($data->propertyType == 'Flat') ? 'selected' : ''  ?>>Flat</option>
                     </select>
                   </div>
             
@@ -139,6 +139,10 @@
                     <input type="text" class="form-control" name="address" id="address" value="<?= $data->address?>">
                   </div> 
                   <div class="col-sm-4">
+                     <label for="inputText" class="col-form-label">Area</label>
+                    <input type="text" class="form-control" name="area" id="area" value="<?= $data->area?>">
+                  </div> 
+                  <div class="col-sm-4">
                   	 <label for="inputText" class="col-form-label">City</label>
                     <!-- <input type="text" class="form-control" name="city" id="city" value="<?= $data->city?>"> -->
                      <select class="form-control input-height" name="city"  id="city">
@@ -173,10 +177,10 @@
                  <div class="row mb-3">
                   
                    <div class="col-sm-4">
-                     <img src="<?php echo base_url(); ?>assets/uploads/properties/<?php echo $data->floorimg ?>" alt="" class="img-fluid mt-2 text-center" style="width: 150px;"><br>
+                     <!-- <img src="<?php echo base_url(); ?>assets/uploads/properties/<?php echo $data->floorimg ?>" alt="" class="img-fluid mt-2 text-center" style="width: 150px;"><br> -->
 
                   	<label for="inputName" class="col-form-label">Image<span class="error">  </span></label><br>
-	                <input type="file"  class="form-control" name="floorimg" id="floorimg" >
+	                <input type="file"  class="form-control" name="floorimg[]" id="floorimg" multiple >
                   </div> 
                  
                </div> 
