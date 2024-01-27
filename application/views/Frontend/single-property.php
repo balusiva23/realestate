@@ -20,7 +20,7 @@
 <!-- Sidenav end -->
 
 <!-- Sub banner start -->
-<div class="sub-banner">
+   <div class="sub-banner" style="background: rgba(0, 0, 0, 0.04) url(<?php echo ($settings->banner_properties1) ?  base_url('assets/uploads/banner/').$settings->banner_properties1 : ''  ?>) top left repeat;background-size: cover; padding: 157px 0 100px; z-index: 1; background-position: center center; background-repeat: no-repeat; position: relative;">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6">
@@ -29,7 +29,7 @@
             <div class="col-lg-6 col-md-6">
                 <div class="breadcrumb-area">
                     <ul>
-                        <li><a href="index.html">Index</a></li>
+                        <li><a href="#">Index</a></li>
                         <li><span>/</span><?=$property_data->propertyName?></li>
                     </ul>
                 </div>

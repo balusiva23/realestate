@@ -302,6 +302,31 @@
                                 </div>
                             </div>
                         </div>
+                            <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Service Page</h4>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img src="<?php echo base_url(); ?>assets/uploads/banner/<?php echo $tbl_data->banner_service ?>" alt="" class="img-fluid">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form action="<?php echo base_url("Dashboard/submitForm");?>" class="" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+                                                <h4 class="card-title">Change Banner</h4>
+                                                Select Photo<input type="file" name="banner_service">
+                                                   <input type="hidden" name="form_identifier" value="form_banner_service">
+                                                <input type="submit" class="btn btn-primary btn-xs form-submit-button" value="Change" style="margin-top:10px;" name="form_banner_service">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+
+                  
+                    <div class="row mt-3">
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
@@ -322,29 +347,30 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-md-6">
+                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Service Page</h4>
+                                    <h4 class="card-title">Single Property Page</h4>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <img src="<?php echo base_url(); ?>assets/uploads/banner/<?php echo $tbl_data->banner_service ?>" alt="" class="img-fluid">
+                                            <img src="<?php echo base_url(); ?>assets/uploads/banner/<?php echo $tbl_data->banner_properties1 ?>" alt="" class="img-fluid">
                                         </div>
                                         <div class="col-md-6">
                                             <form action="<?php echo base_url("Dashboard/submitForm");?>" class="" enctype="multipart/form-data" method="post" accept-charset="utf-8">
                                                 <h4 class="card-title">Change Banner</h4>
-                                                Select Photo<input type="file" name="banner_service">
-                                                   <input type="hidden" name="form_identifier" value="form_banner_service">
-                                                <input type="submit" class="btn btn-primary btn-xs form-submit-button" value="Change" style="margin-top:10px;" name="form_banner_service">
+                                                Select Photo<input type="file" name="banner_properties1">
+                                                <input type="hidden" name="form_identifier" value="form_banner_properties1">
+                                                <input type="submit" class="btn btn-primary btn-xs form-submit-button" value="Change" style="margin-top:10px;" name="form_banner_testimonial">
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                      <div class="row mt-3">
+                    
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">

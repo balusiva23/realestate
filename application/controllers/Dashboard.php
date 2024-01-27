@@ -332,6 +332,57 @@ class Dashboard extends CI_Controller {
                             $data['status'] = 'success';
                         }
                     }
+                }elseif ($formIdentifier === 'form_banner_properties1') {
+               
+                   if($_FILES['banner_properties1']['name']){
+                        $file_name = $_FILES['banner_properties1']['name'];
+                        $fileSize = $_FILES["banner_properties1"]["size"]/1024;
+                        $fileType = $_FILES["banner_properties1"]["type"];
+                        $new_file_name='';
+                        $new_file_name .= $file_name;
+
+                        $config = array(
+                            'file_name' => $new_file_name,
+                            'upload_path' => "./assets/uploads/banner",
+                            'allowed_types' => "gif|jpg|png|jpeg|ico",
+                            'overwrite' => TRUE,
+                            'max_size' => "50720000"
+                        );
+                        //create directory
+                          if(!is_dir($config['upload_path'])) mkdir($config['upload_path'], 0777, TRUE);
+                
+                        $this->load->library('Upload', $config);
+                        $this->upload->initialize($config);                
+                        if (!$this->upload->do_upload('banner_properties1')) {
+                            echo $this->upload->display_errors();
+                            #redirect("notice/All_notice");
+                        }else {
+                            $file_data = $this->upload->data();
+                            $img_url = $file_data['file_name'];
+
+                            // Check if the image already exists in the database
+                            $existingImage = $this->Common_model->dataExists();
+
+                            if ($existingImage) {
+                                // If it exists, update the image URL
+                                 $data = array(
+                                    'banner_properties1'=>$img_url
+                                );
+                                
+                                $this->Common_model->updateData($data);
+                                $data['message'] = 'Banner updated successfully';
+                            } else {
+                                // If it doesn't exist, insert the new image
+                                $data = array(
+                                    'banner_properties1'=>$img_url
+                                );
+                                $this->Common_model->insertData($data);
+                                $data['message'] = 'Banner inserted successfully';
+                            }
+
+                            $data['status'] = 'success';
+                        }
+                    }
                 }elseif ($formIdentifier === 'form_banner_service') {
                
                    if($_FILES['banner_service']['name']){

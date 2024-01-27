@@ -142,7 +142,7 @@ class Property_model extends CI_Model {
                                     <h4 class="price">';
 
 
-                                       if($property->propertyStatus == "1") { 
+                                       if($property->propertyStatus == "2") { 
                                         $output .= ' '.$property->propertyPrice.'<span>/mo</span>';
                                      }else {  
                                       $output .= ''.$property->propertyPrice.'';
