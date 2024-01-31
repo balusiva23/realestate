@@ -50,16 +50,26 @@
       <a class="nav-link collapsed" data-bs-target="#tables-nav1" data-bs-toggle="collapse" href="#">
         <i class="bi bi-layout-text-window-reverse"></i><span>Properties</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
-      <ul id="tables-nav1" class="nav-content collapse <?= $this->uri->segment(2) === 'AddProperties' || $this->uri->segment(2) === 'ViewProperties' ? 'show' : '' ?> " data-bs-parent="#sidebar-nav">
+      <ul id="tables-nav1" class="nav-content collapse <?= $this->uri->segment(2) === 'AddProperties' || $this->uri->segment(2) === 'ViewProperties' || $this->uri->segment(2) === 'City' || $this->uri->segment(2) === 'Property_type' ? 'show' : ''  ?> " data-bs-parent="#sidebar-nav">
         <li class="nav-item   <?= $this->uri->segment(2) === 'AddProperties' ? 'active' : '' ?>">
           <a href="<?php echo base_url(); ?>dashboard/AddProperties">
             <!-- AddProperties -->
             <i class="bi bi-circle"></i><span>Add Properties</span>
           </a>
         </li>
-      <li class="nav-item   <?= $this->uri->segment(2) === 'ViewProperties' ? 'active' : '' ?>">
+        <li class="nav-item   <?= $this->uri->segment(2) === 'ViewProperties' ? 'active' : '' ?>">
           <a href="<?php echo base_url(); ?>dashboard/ViewProperties">
             <i class="bi bi-circle"></i><span>View Properties</span>
+          </a>
+        </li> 
+        <li class="nav-item   <?= $this->uri->segment(2) === 'City' ? 'active' : '' ?>">
+          <a href="<?php echo base_url(); ?>dashboard/City">
+            <i class="bi bi-circle"></i><span>Add City</span>
+          </a>
+        </li> 
+        <li class="nav-item   <?= $this->uri->segment(2) === 'City' ? 'active' : '' ?>">
+          <a href="<?php echo base_url(); ?>dashboard/Property_type">
+            <i class="bi bi-circle"></i><span>Add Property Type</span>
           </a>
         </li> 
       </ul>

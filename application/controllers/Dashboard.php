@@ -63,6 +63,7 @@ class Dashboard extends CI_Controller {
         $this->checkLogin(); // Add this line to check login
           //cities
          $data['get_cities'] = $this->Common_model->getcities();
+         $data['get_propertytype'] = $this->Common_model->getpropertytype();
         $this->load->view('Backend/properties/add_properties',$data);
         }  
          public function EditProperties()
@@ -73,6 +74,7 @@ class Dashboard extends CI_Controller {
         $data['data'] = $this->Common_model->getPropertiesbyid($id);
           //cities
          $data['get_cities'] = $this->Common_model->getcities();
+         $data['get_propertytype'] = $this->Common_model->getpropertytype();
         $this->load->view('Backend/properties/edit_properties',$data);
         }
          public function ViewProperties()
@@ -2129,5 +2131,206 @@ if (!empty($_FILES['floorimg']['name'][0])) {
             echo json_encode(array('status' => 'error', 'message' => 'Details deletion failed'));
         }
     }
+
+     // ---------------------------City --------------------------//
+     public function City()
+     {
+     $this->checkLogin(); // Add this line to check login
+     //getTestimonial
+     $data['get_datas'] = $this->Common_model->getcities();
+     $this->load->view('Backend/city',$data);
+     }
+     public function add_City() {
+           
+       
+  
+       $data = array(
+
+           'city' => $this->input->post('city')
+         
+          
+       );
+       $table = 'cities';
+    
+   
+           $result = $this->Common_model->insert($data,$table); 
+     
+      
+
+       if ($result) {
+           // Success: Product inserted
+           echo json_encode(array('status' => 'success', 'message' => 'Added successfully'));
+       } else {
+           // Error: Product not inserted
+           echo json_encode(array('status' => 'error', 'message' => 'Not Added'));
+       }
+   //  }
+   }
+        
+            public function update_City() {
+
+            $data = array(
+
+                'city' => $this->input->post('city')
+            
+            
+            );
+  
+            $table = 'cities';
+                        
+                $id = $this->input->post('id');
+                $result = $this->Common_model->update($data,$table,$id );
+            
+            
+
+            if ($result) {
+                // Success: Product inserted
+                echo json_encode(array('status' => 'success', 'message' => 'Updated successfully'));
+            } else {
+                // Error: Product not inserted
+                echo json_encode(array('status' => 'error', 'message' => 'Not Updated'));
+            }
+            
+           
+         }
+            
+
+            public function getCityByID() {
+            $id = $this->input->get('id');
+            // Call the model method to retrieve product details by ID
+           // $product = $this->Common_model->getTestimonialByID($id);
+
+           	// Retrieve time slot details directly in the controller
+                $this->db->where('id', $id);
+                $query = $this->db->get('cities');
+                $product = $query->row();
+
+
+		
+
+            // Check if the product exists
+            if ($product) {
+                // Send the product details as JSON response
+                echo json_encode($product);
+            } else {
+                // Product not found
+                echo json_encode(array('error' => 'Product not found'));
+            }
+            }
+
+            public function DeleteCity() {
+            $id = $this->input->post('id');
+            // Call the model method to delete the product by ID
+                $table = 'cities';
+            $result = $this->Common_model->delete($id,$table);
+
+            if ($result) {
+            
+                echo json_encode(array('status' => 'success','message' => 'Deleted successfully'));
+            } else {
+                
+                echo json_encode(array('status' => 'error', 'message' => 'Deletion failed'));
+            }
+            }
+             // ---------------------------Property_type --------------------------//
+     public function Property_type()
+     {
+     $this->checkLogin(); // Add this line to check login
+ 
+     $data['get_datas'] = $this->Common_model->getpropertytype();
+     $this->load->view('Backend/property_type',$data);
+     }
+     public function addProperty_type() {
+           
+       
+  
+       $data = array(
+
+           'property_type' => $this->input->post('property_type')
+         
+          
+       );
+       $table = 'property_type';
+    
+   
+           $result = $this->Common_model->insert($data,$table); 
+     
+      
+
+       if ($result) {
+           // Success: Product inserted
+           echo json_encode(array('status' => 'success', 'message' => 'Added successfully'));
+       } else {
+           // Error: Product not inserted
+           echo json_encode(array('status' => 'error', 'message' => 'Not Added'));
+       }
+   //  }
+   }
+        
+            public function updateProperty_type() {
+
+            $data = array(
+
+                'property_type' => $this->input->post('property_type')
+            
+            
+            );
+  
+            $table = 'property_type';
+                        
+                $id = $this->input->post('id');
+                $result = $this->Common_model->update($data,$table,$id );
+            
+            
+
+            if ($result) {
+                // Success: Product inserted
+                echo json_encode(array('status' => 'success', 'message' => 'Updated successfully'));
+            } else {
+                // Error: Product not inserted
+                echo json_encode(array('status' => 'error', 'message' => 'Not Updated'));
+            }
+            
+           
+         }
+            
+
+            public function getProperty_typeByID() {
+            $id = $this->input->get('id');
+            // Call the model method to retrieve product details by ID
+           // $product = $this->Common_model->getTestimonialByID($id);
+
+           	// Retrieve time slot details directly in the controller
+                $this->db->where('id', $id);
+                $query = $this->db->get('property_type');
+                $product = $query->row();
+
+
+		
+
+            // Check if the product exists
+            if ($product) {
+                // Send the product details as JSON response
+                echo json_encode($product);
+            } else {
+                // Product not found
+                echo json_encode(array('error' => 'not found'));
+            }
+            }
+
+            public function DeleteProperty_type() {
+            $id = $this->input->post('id');
+            // Call the model method to delete the product by ID
+                $table = 'property_type';
+            $result = $this->Common_model->delete($id,$table);
+
+            if ($result) {
+            
+                echo json_encode(array('status' => 'success','message' => 'Deleted successfully'));
+            } else {
+                
+                echo json_encode(array('status' => 'error', 'message' => 'Deletion failed'));
+            }
+            }
 }
 

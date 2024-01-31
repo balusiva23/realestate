@@ -77,13 +77,15 @@ class Home extends CI_Controller {
 
          //properties
         $this->data['get_properties'] = $this->Common_model->getProperties();
+
+		$this->data['get_propertytype'] = $this->Common_model->getpropertytype();
 		$this->load->view('Frontend/properties',$this->data);
 	}
 
 	// New
 		function fetch_data()
 	{
-		sleep(2);
+		sleep(1);
 		// $minimum_price = $this->input->post('minimum_price');
 		// $maximum_price = $this->input->post('maximum_price');
 		// $brand = $this->input->post('brand');
@@ -94,11 +96,12 @@ class Home extends CI_Controller {
 		$lease = $this->input->post('lease');
 		$city = $this->input->post('city');
 		$area = $this->input->post('area');
+		$property_type = $this->input->post('property_type');
 		$this->load->library("pagination");
 		$config = array();
 		$config["base_url"] = "#";
 		//$config["total_rows"] = $this->Property_model->count_all($minimum_price, $maximum_price, $brand, $ram, $storage);
-		$config["total_rows"] = $this->Property_model->count_all($sale, $rent,$lease,$city,$area);
+		$config["total_rows"] = $this->Property_model->count_all($sale, $rent,$lease,$city,$area,$property_type);
 		$config["per_page"] = 4;
 		$config["uri_segment"] = 3;
 		$config["use_page_numbers"] = TRUE;
@@ -131,7 +134,7 @@ class Home extends CI_Controller {
 		$output = array(
 			'pagination_link'		=>	$this->pagination->create_links(),
 			//'product_list'			=>	$this->Property_model->fetch_data($config["per_page"], $start, $minimum_price, $maximum_price, $brand, $ram, $storage)
-			'product_list'			=>	$this->Property_model->fetch_data($config["per_page"], $start,$sale, $rent,$lease,$city,$area)
+			'product_list'			=>	$this->Property_model->fetch_data($config["per_page"], $start,$sale, $rent,$lease,$city,$area,$property_type)
 		);
 		echo json_encode($output);
 	}

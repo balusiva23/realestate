@@ -59,12 +59,12 @@
 });
 });
        //get allowance
-       function loadimage(){
-        $(document).ready(function () {
+       function loadproperty_images(){
+        //$(document).ready(function () {
         $(document).on("click", '.OpenImageModal',function (event) {
         event.preventDefault();
         var id = $(this).attr("data-id");  
-
+        console.log(id);
         if(id != '' ){
         $.ajax({
           url: "Get_properties_images?id="+id,
@@ -72,7 +72,7 @@
           dataType:'',
           data:'data',          
           success: function(response) {
-            // console.log(response);
+            console.log(response);
             $('.allowancetbl').html(response);
           },
           error: function(response) {
@@ -81,10 +81,10 @@
         });
       }
       });
-      });
+      //});
 
       }
-      loadimage();
+      loadproperty_images();
       //delete allowance
       $(document).ready(function () {
         $(document).on("click", '.deleteImage',function (event) {
@@ -127,7 +127,8 @@
               var id = $(this).attr('data-id');
              
              $('#form_images').find('[name="property_id"]').val(id).end();
-           
+             loadproperty_images();
+         //  console.log('working');
 
                });
              });

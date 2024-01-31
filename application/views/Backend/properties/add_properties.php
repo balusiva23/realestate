@@ -77,43 +77,54 @@
                   <div class="col-sm-4">
                   	 <label for="inputEmail" class="col-form-label">Type</label><span class="error"> * </span>
                       <!-- <input type="text" class="form-control" name="propertyType" id="propertyType" required> -->
-                  <select class="form-select" name="propertyType" id="propertyType" required>
+                  <!-- <select class="form-select" name="propertyType" id="propertyType" required>
                         <option value="Apartment">Apartment</option>
                         <option value="House">House</option>
                         <option value="Commercial">Commercial</option>
                         <option value="Garage">Garage</option>
                         <option value="Flat">Flat</option>
-                    </select>
+                    </select> -->
+
+                    <select class="form-control input-height" name="propertyType"  id="propertyType" required>
+                      <option value="">Select...</option>
+                  <?php 
+                         foreach ($get_propertytype as  $value) { ?>
+                        <option value="<?= $value->id ?>"><?= $value->property_type; ?></option>
+                        <?php  }
+                           ?>
+                        </select>
                   </div>
             
                 </div>     
                 <div class="row mb-3">
                  
                   <div class="col-sm-4">
-                  	 <label for="inputText" class="col-form-label">Area/Location(SqFt)</label><span class="error"> * </span>
+                  	 <label for="inputText" class="col-form-label">SqFt</label><span class="error"> * </span>
                     <input type="text" class="form-control" name="propertySqft" id="propertySqft" required>
                   </div>
                
            
                   <div class="col-sm-4">
                   	 <label for="inputEmail" class="col-form-label">Rooms</label>
-                     <select class="form-select" aria-label="Default select example" name="rooms">
+                     <input type="text" class="form-control" name="rooms" id="rooms" >
+                     <!-- <select class="form-select" aria-label="Default select example" name="rooms">
                        <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
                   
-                    </select>
+                    </select> -->
                   </div>
                   <div class="col-sm-4">
                   	 <label for="inputEmail" class="col-form-label"> Bathroom</label>
-                  <select class="form-select"  name="bathroom">
+                     <input type="text" class="form-control" name="bathroom" id="bathroom"  >
+                  <!-- <select class="form-select"  name="bathroom">
                        <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
                   
-                    </select>
+                    </select> -->
                   </div>
             
                 </div>
@@ -121,7 +132,7 @@
                  
                    <div class="col-sm-4">
                   	 <label for="inputText" class="col-form-label">Sale or Rent Price</label>
-                    <input type="number" class="form-control" name="propertyPrice" id="propertyPrice">
+                    <input type="text" class="form-control" name="propertyPrice" id="propertyPrice">
                   </div>
 
                   <div class="col-sm-4">
@@ -139,7 +150,7 @@
                     <input type="text" class="form-control" name="address" id="address">
                   </div> 
                    <div class="col-sm-4">
-                     <label for="inputText" class="col-form-label">Area</label>
+                     <label for="inputText" class="col-form-label">Area/Location</label>
                     <input type="text" class="form-control" name="area" id="area" >
                   </div> 
                   <div class="col-sm-4">

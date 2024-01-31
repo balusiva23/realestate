@@ -89,14 +89,16 @@
                   <?php 
                            $i = 1;
                             foreach ($get_datas as $member) {
-                       
+                             
+                              $query = $this->db->get_where('property_type',array('isActive'=> '1','id'=>$member->propertyType));
+                              $result = $query->row();
 
                                 ?>
                               <tr class="odd gradeX" data-id="<?=$member->id;?>">
                                 <td class="center"> <?=$i; ?></td>
                                   <td class="center">   <?=$member->propertyName; ?></td>
                                   <td class="center">   <?= ($member->propertyStatus == '1') ? 'For Sale' : 'For Rent'; ?></td>
-                                  <td class="center">   <?=$member->propertyType; ?></td>
+                                  <td class="center">   <?=$result->property_type; ?></td>
                                  <td class="center">   <?=$member->propertySqft; ?></td>
                                  <td class="center">   <?=$member->propertyPrice; ?></td>
                                   <td class="center"> <img src="<?php echo base_url(); ?>assets/uploads/properties/thumnail/<?php echo $member->thumnail ?>" alt="" class="img-fluid" style="width: 50px;"></td>

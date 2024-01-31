@@ -10,6 +10,11 @@
     <!-- External CSS libraries -->
    <?php $this->load->view('Frontend/temp/header'); ?>
     <link rel="stylesheet" type="text/css" id="" href="<?php echo base_url(); ?>assets/web/css/skins/default.css"> 
+    <style>
+        .sidebar-title{
+            margin-top:30px
+        }
+    </style>
 </head>
 
 <body>
@@ -80,33 +85,27 @@
                                     <div class="widget advanced-search">
                         <!-- <h3 class="sidebar-title">Filter by status</h3> -->
                         <form method="POST" id="property-filter-form">
-                        <!--     <div class="form-group">
-                                <select class="selectpicker search-fields"  name="propertyStatus">
-                                    <option>All Status</option>
-                                    <option value="1">For Sale</option>
-                                    <option value="2">For Rent</option>
-                                </select>
-                            </div> -->
+                     
                             <!-- Status -->
-                        <h3 class="sidebar-title">Filter by status</h3>
-                       <div class="checkbox checkbox-theme checkbox-circle">
-                        <input id="checkbox1" type="checkbox" class="common_selector sale" value="1" name="sale">
-                        <label for="checkbox1">
-                           For Sale
-                        </label>
-                       </div> 
-                              <div class="checkbox checkbox-theme checkbox-circle">
-                                <input id="checkbox2" type="checkbox" value="2" class="common_selector rent" name="rent"> 
-                                <label for="checkbox2">
-                                  For Rent
+                                <h3 class="sidebar-title" style="margin-top: 0px; ">Filter by status</h3>
+                            <div class="checkbox checkbox-theme checkbox-circle">
+                                <input id="checkbox1" type="checkbox" class="common_selector sale" value="1" name="sale">
+                                <label for="checkbox1">
+                                For Sale
                                 </label>
-                           </div>  
-                           <div class="checkbox checkbox-theme checkbox-circle">
-                            <input id="checkbox3" type="checkbox" value="3" class="common_selector lease" name="lease"> 
-                            <label for="checkbox3">
-                              For Lease 
-                            </label>
-                           </div>   
+                            </div> 
+                            <div class="checkbox checkbox-theme checkbox-circle">
+                                    <input id="checkbox2" type="checkbox" value="2" class="common_selector rent" name="rent"> 
+                                    <label for="checkbox2">
+                                    For Rent
+                                    </label>
+                            </div>  
+                            <div class="checkbox checkbox-theme checkbox-circle">
+                                <input id="checkbox3" type="checkbox" value="3" class="common_selector lease" name="lease"> 
+                                <label for="checkbox3">
+                                For Lease 
+                                </label>
+                            </div>   
                                   <!-- City -->
                         <h3 class="sidebar-title">Filter by city</h3>
                     
@@ -145,6 +144,21 @@
                          <?php } } ?>
                     
 
+                                      <!-- Property type -->
+                        <h3 class="sidebar-title">Filter by Property Type</h3>
+                    
+
+                    <?php 
+                      foreach ($get_propertytype as  $val) { ?>
+                          <div class="checkbox checkbox-theme checkbox-circle">
+                  
+                   <input id="property_typeCheckbok_<?= $val->id ?>" type="checkbox" class="common_selector property_type"  name="property_type" value="<?= $val->id; ?>">
+                   <label for="property_typeCheckbok_<?= $val->id ?>">
+                     <?= $val->property_type; ?>
+                   </label>
+                     </div> 
+                   <?php  }
+                      ?>
 
                      
 
@@ -261,13 +275,14 @@ $(document).ready(function(){
         var lease = get_filter('lease');
         var city = get_filter('city');
         var area = get_filter('area');
-        //console.log(city)
+        var property_type = get_filter('property_type');
+        console.log(property_type)
         $.ajax({
             url:"<?php echo base_url(); ?>Home/fetch_data/"+page,
             method:"POST",
             dataType:"JSON",
             //data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand, ram:ram, storage:storage},
-            data:{action:action, sale:sale, rent:rent,lease:lease,city:city,area:area},
+            data:{action:action, sale:sale, rent:rent,lease:lease,city:city,area:area,property_type:property_type},
             success:function(data)
             {
                  $('.filter_data').html(data.product_list);
@@ -282,20 +297,7 @@ $(document).ready(function(){
         })
     }
 
-    // $('#price_range').slider({
-    //     range:true,
-    //     min:1000,
-    //     max:65000,
-    //     values:[1000, 65000],
-    //     step: 500,
-    //     stop:function(event, ui){
-    //         //$('#price_show').show();
-    //         $('#price_show').html(ui.values[0] + ' - ' + ui.values[1]);
-    //         $('#hidden_minimum_price').val(ui.values[0]);
-    //         $('#hidden_maximum_price').val(ui.values[1]);
-    //         filter_data(1);
-    //     }
-    // });
+ 
 
     function get_filter(class_name)
     {

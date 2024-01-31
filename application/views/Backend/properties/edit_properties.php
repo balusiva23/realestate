@@ -76,43 +76,55 @@
                   </div>
                   <div class="col-sm-4">
                   	 <label for="inputEmail" class="col-form-label">Type</label><span class="error"> * </span>
-                  <select class="form-select" name="propertyType" id="propertyType" required>
+                  <!-- <select class="form-select" name="propertyType" id="propertyType" required>
                         <option value="Apartment" <?php echo ($data->propertyType == 'Apartment') ? 'selected' : ''  ?>>Apartment</option>
                         <option value="House" <?php echo ($data->propertyType == 'House') ? 'selected' : ''  ?>>House</option>
                         <option value="Commercial" <?php echo ($data->propertyType == 'Commercial') ? 'selected' : ''  ?>>Commercial</option>
                         <option value="Garage" <?php echo ($data->propertyType == 'Garage') ? 'selected' : ''  ?>>Garage</option>
                         <option value="Flat" <?php echo ($data->propertyType == 'Flat') ? 'selected' : ''  ?>>Flat</option>
-                    </select>
+                    </select> -->
+                    <select class="form-control input-height" name="propertyType"  id="propertyType" required>
+                      <option value="">Select...</option>
+                  <?php 
+                         foreach ($get_propertytype as  $value) {
+                          
+                          ?>
+                        <option value="<?= $value->id ?>" <?php echo ($data->propertyType == $value->id) ? 'selected' : ''  ?>><?= $value->property_type; ?></option>
+                        <?php  }
+                           ?>
+                        </select>
                   </div>
             
                 </div>     
                 <div class="row mb-3">
                  
                   <div class="col-sm-4">
-                  	 <label for="inputText" class="col-form-label">Area/Location(SqFt)</label><span class="error"> * </span>
+                  	 <label for="inputText" class="col-form-label">SqFt</label><span class="error"> * </span>
                     <input type="text" class="form-control" name="propertySqft" id="propertySqft" required value="<?= $data->propertySqft?>">
                   </div>
                
            
                   <div class="col-sm-4">
                   	 <label for="inputEmail" class="col-form-label">Rooms</label>
-                     <select class="form-select" aria-label="Default select example" name="rooms">
+                     <input type="text" class="form-control" name="rooms" id="rooms"  value="<?= $data->rooms?>">
+                     <!-- <select class="form-select" aria-label="Default select example" name="rooms">
                        <option value="1" <?php echo ($data->rooms == '1') ? 'selected' : ''  ?>>1</option>
                         <option value="2" <?php echo ($data->rooms == '2') ? 'selected' : ''  ?>>2</option>
                         <option value="3" <?php echo ($data->rooms == '3') ? 'selected' : ''  ?>>3</option>
                         <option value="4" <?php echo ($data->rooms == '4') ? 'selected' : ''  ?>>4</option>
                   
-                    </select>
+                    </select> -->
                   </div>
                   <div class="col-sm-4">
                   	 <label for="inputEmail" class="col-form-label"> Bathroom</label>
-                  <select class="form-select"  name="bathroom">
+                     <input type="text" class="form-control" name="bathroom" id="bathroom"  value="<?= $data->bathroom?>">
+                  <!-- <select class="form-select"  name="bathroom">
                        <option value="1" <?php echo ($data->bathroom == '1') ? 'selected' : ''  ?>>1</option>
                         <option value="2" <?php echo ($data->bathroom == '2') ? 'selected' : ''  ?>>2</option>
                         <option value="3" <?php echo ($data->bathroom == '3') ? 'selected' : ''  ?>>3</option>
                         <option value="4"<?php echo ($data->bathroom == '4') ? 'selected' : ''  ?>>4</option>
                   
-                    </select>
+                    </select> -->
                   </div>
             
                 </div>
@@ -120,7 +132,7 @@
                  
                    <div class="col-sm-4">
                   	 <label for="inputText" class="col-form-label">Sale or Rent Price</label>
-                    <input type="number" class="form-control" name="propertyPrice" id="propertyPrice" value="<?= $data->propertyPrice?>">
+                    <input type="text" class="form-control" name="propertyPrice" id="propertyPrice" value="<?= $data->propertyPrice?>">
                   </div>
 
                   <div class="col-sm-4">
@@ -139,7 +151,7 @@
                     <input type="text" class="form-control" name="address" id="address" value="<?= $data->address?>">
                   </div> 
                   <div class="col-sm-4">
-                     <label for="inputText" class="col-form-label">Area</label>
+                     <label for="inputText" class="col-form-label">Area/Location</label>
                     <input type="text" class="form-control" name="area" id="area" value="<?= $data->area?>">
                   </div> 
                   <div class="col-sm-4">
@@ -149,7 +161,7 @@
                       <option value="">Select...</option>
                   <?php 
                          foreach ($get_cities as  $value) { ?>
-                        <option value="<?= $value->id ?>"><?= $value->city; ?></option>
+                        <option value="<?= $value->id ?>"  <?php echo ($data->city == $value->id) ? 'selected' : ''  ?>><?= $value->city; ?></option>
                         <?php  }
                            ?>
                           </select>
@@ -214,6 +226,12 @@
                    <label for="inputText" class="col-form-label">Property Video</label> <small>(Max Size 50Mb)</small>
 
                     <input type="file"  class="form-control" name="video" id="video" accept=".mp4">
+                    <?php if($data->video) {  ?>
+                    <video width="400" height="200" controls class="mt-4">
+                      <source src="<?=base_url()?>assets/uploads/properties_videos/<?php echo $data->video; ?>" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <?php } ?>
                  <!--    <input type="text" class="form-control" name="video" id="video" placeholder="https://www.youtube.com/embed/VIDEO_I" value="<?= $data->video?>">
 
                    <p>Here's how to get the embed URL from Youtube:</p>

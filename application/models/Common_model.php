@@ -231,6 +231,14 @@ class Common_model extends CI_Model {
         $query = $this->db->get('cities');
         return $query->result();
     } 
+        public function getpropertytype()
+    {
+     
+        $this->db->order_by('id', 'asc');
+        $this->db->where('isActive', '1');
+        $query = $this->db->get('property_type');
+        return $query->result();
+    } 
     //cities
         public function getfloors($id)
     {

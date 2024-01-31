@@ -35,7 +35,7 @@ class Property_model extends CI_Model {
 
     // New -----------------------------
 
-    function make_query($sale, $rent,$lease,$city,$area)
+    function make_query($sale, $rent,$lease,$city,$area,$property_type)
     {
         $query = "
         SELECT * FROM properties 
@@ -57,7 +57,7 @@ class Property_model extends CI_Model {
         //      AND propertyStatus IN('".$storage_filter."')
         //     ";
         // }
-        if (isset($sale) || isset($rent) || isset($lease) || isset($city) || isset($area)) {
+        if (isset($sale) || isset($rent) || isset($lease) || isset($city) || isset($area) || isset($property_type)) {
             $conditions = [];
 
             if (isset($sale)) {
@@ -88,30 +88,30 @@ class Property_model extends CI_Model {
                // $conditions[] = "area IN ('" . $storage_filter . "')";
             }
 
-            $query .= " AND (" . implode(" OR ", $conditions) . ")";
+            if (isset($property_type)) {
+                $storage_filter = implode("','", $property_type);
+                $conditions[] = "propertyType IN ('" . $storage_filter . "')";
+               // $conditions[] = "area IN ('" . $storage_filter . "')";
+            }
+
+            $query .= " AND (" . implode(" OR ", $conditions) . ") ";
          }
-        //   if(isset($city))
-        // {
-        //     $storage_filter = implode("','", $city);
-        //     $query .= "
-        //      AND city IN('".$city."')
-        //     ";
-        // }
+     
         return $query;
     }
 
   //  function fetch_data($limit, $start, $minimum_price, $maximum_price, $brand, $ram, $storage)
-    function fetch_data($limit, $start,$sale, $rent,$lease,$city,$area)
+    function fetch_data($limit, $start,$sale, $rent,$lease,$city,$area,$property_type)
     {
         //$query = $this->make_query($minimum_price, $maximum_price, $brand, $ram, $storage);
-        $query = $this->make_query($sale, $rent,$lease,$city,$area);
+        $query = $this->make_query($sale, $rent,$lease,$city,$area,$property_type);
 
-        $query .= ' LIMIT '.$start.', ' . $limit;
+        $query .= 'ORDER BY created_on DESC LIMIT '.$start.', ' . $limit;
 
         $data = $this->db->query($query);
 
         $output = '';
-       // print_r($query);
+      //  print_r($query);
         if($data->num_rows() > 0)
         {
             foreach($data->result() as $property)
@@ -191,10 +191,10 @@ class Property_model extends CI_Model {
     }
 
    // function count_all($minimum_price, $maximum_price, $brand, $ram, $storage)
-    function count_all($sale, $rent,$lease,$city,$area)
+    function count_all($sale, $rent,$lease,$city,$area,$property_type)
     {
         //$query = $this->make_query($minimum_price, $maximum_price, $brand, $ram, $storage);
-        $query = $this->make_query($sale, $rent,$lease,$city,$area);
+        $query = $this->make_query($sale, $rent,$lease,$city,$area,$property_type);
         $data = $this->db->query($query);
         return $data->num_rows();
     }
