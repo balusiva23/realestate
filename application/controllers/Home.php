@@ -48,7 +48,10 @@ class Home extends CI_Controller {
 	//Logos
     $this->data['get_brands'] = $this->Common_model->getLogo();
     //properties
-  $this->data['get_properties'] = $this->Common_model->getProperties();
+     $this->data['get_properties'] = $this->Common_model->getProperties();
+	  //cities
+	$this->data['get_cities'] = $this->Common_model->getcities1();
+
 	$this->load->view('Frontend/index',$this->data);//$this->data
 	}
 	public function About()

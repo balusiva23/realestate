@@ -53,51 +53,6 @@
                 <?php $i++; } ?>
                 <?php endif; ?>
 
-              <!--   <div class="carousel-item item-bg active">
-                    <img class="d-block w-100 h-100" src="<?php echo base_url(); ?>assets/web/img/banner/img-2.jpg" alt="banner">
-                    <div class="carousel-caption banner-slider-inner d-flex h-100 text-start">
-                        <div class="carousel-content container align-self-center">
-                            <div class="banner-info2">
-                                <div class="text-l">
-                                    <h3>Find Your Amazing Real House</h3>
-                                    <p>Find new & featured property located in your local city.</p>
-                                    <a class="btn-2" href="#">Get Started Now</a>
-                                    <a class="btn-1" href="#"><span>Learn More</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item item-bg">
-                    <img class="d-block w-100 h-100" src="<?php echo base_url(); ?>assets/web/img/banner/img-3.jpg" alt="banner">
-                    <div class="carousel-caption banner-slider-inner d-flex h-100 text-start">
-                        <div class="carousel-content container align-self-center">
-                            <div class="t-left banner-info2">
-                                <div class="text-r">
-                                    <h3>Discover Modern Villa</h3>
-                                    <p>Find new & featured property located in your local city.</p>
-                                    <a class="btn-2" href="#">Get Started Now</a>
-                                    <a class="btn-1" href="#"><span>Learn More</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item item-bg">
-                    <img class="d-block w-100 h-100" src="<?php echo base_url(); ?>assets/web/img/banner/img-1.jpg" alt="banner">
-                    <div class="carousel-caption banner-slider-inner d-flex h-100 text-start">
-                        <div class="carousel-content container align-self-center">
-                            <div class="t-left banner-info2">
-                                <div class="text-center">
-                                    <h3>Find Your Dreem Property</h3>
-                                    <p>Find new & featured property located in your local city.</p>
-                                    <a class="btn-2" href="#">Get Started Now</a>
-                                    <a class="btn-1" href="#"><span>Learn More</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
                 data-bs-slide="prev">
@@ -164,20 +119,7 @@
                                     <i class="fa fa-map-marker"></i><?=$property->address ?>
                                 </a>
                             </div>
-                         <!--    <ul class="facilities-list clearfix">
-                                <li>
-                                    <i class="flaticon-furniture"></i> 3 Bedrooms
-                                </li>
-                                <li>
-                                    <i class="flaticon-holidays"></i> 2 Bathrooms
-                                </li>
-                                <li>
-                                    <i class="flaticon-square"></i> Sq Ft:3400
-                                </li>
-                                <li>
-                                    <i class="flaticon-vehicle"></i> 1 Garage
-                                </li>
-                            </ul> -->
+                        
                         </div>
                         <div class="footer clearfix">
                             <div class="pull-left agent">
@@ -191,57 +133,7 @@
                 </div>
                 <?php $i++; } ?>
                 <?php endif; ?>
-               <!--  <div class="item slide-box">
-                    <div class="property-box">
-                        <div class="property-thumbnail">
-                            <a href="single-property.html" class="property-img">
-                                <div class="listing-badges">
-                                    <span class="featured">For Rent</span>
-                                </div>
-                                <div class="price-ratings-box">
-                                    <h4 class="price">
-                                        &#8377;540,000
-                                    </h4>
-                                </div>
-                                <div class="property-overflow">
-                                    <img class="d-block w-100" src="<?php echo base_url(); ?>assets/web/img/p1.jpg" alt="properties">
-                                </div>
-                            </a>
-                        </div>
-                        <div class="detail">
-                            <h1 class="title">
-                                <a href="single-property.html">Modern Family Home</a>
-                            </h1>
-                            <div class="location">
-                                <a href="single-property.html">
-                                    <i class="fa fa-map-marker"></i>123 Kathal St. Tampa City,
-                                </a>
-                            </div>
-                            <ul class="facilities-list clearfix">
-                                <li>
-                                    <i class="flaticon-furniture"></i> 3 Bedrooms
-                                </li>
-                                <li>
-                                    <i class="flaticon-holidays"></i> 2 Bathrooms
-                                </li>
-                                <li>
-                                    <i class="flaticon-square"></i> Sq Ft:3400
-                                </li>
-                                <li>
-                                    <i class="flaticon-vehicle"></i> 1 Garage
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="footer clearfix">
-                            <div class="pull-left agent">
-
-                            </div>
-                            <div class="pull-right days">
-                                <p><a href="#"> Read More </a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+            
                
                           </div>
             <div class="text-center">
@@ -332,9 +224,9 @@
     <!-- Service section 2 end -->
 
     <!-- Popular Places strat -->
-    <div class="popular-places content-area-8">
+    <!-- <div class="popular-places content-area-8">
         <div class="container">
-            <!-- Main title -->
+          
             <div class="main-title">
                 <p>Find Your City</p>
                 <h1>Most Popular Places</h1>
@@ -412,6 +304,60 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="featured-properties content-area-9 comon-slick">
+        <div class="container">
+            <!-- Main title -->
+            <div class="main-title">
+                 <p>Find Your City</p>
+                <h1>Most Popular Places</h1>
+            </div>
+            <div class="slick row comon-slick-inner csi2 wow fadeInUp delay-04s"
+                data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+              
+                <!-- get_properties -->
+
+                  <?php
+                
+                  
+                  if (!empty($get_cities)): 
+                  $i = 1;
+                  foreach ($get_cities as $key =>$city) { 
+                  // print_r($get_cities);
+                    $count = $this->db->where(array('city'=> $city->id,'isActive'=> 1))->from('properties')->count_all_results();
+
+                    ?>
+
+                <div class="item slide-box">
+                    <div class="property-box">
+                    <div class="popular-places-box" style="margin:0px">
+                            <div class="popular-places-overflow">
+                                <div class="popular-places-photo">
+                                    <img class="img-fluid" src="<?php echo base_url(); ?>assets/uploads/city/thumnail/<?= $city->thumnail; ?>"
+                                        alt="popular-places">
+                                </div>
+                            </div>
+                                <div class="listings_no"><?= $count; ?> Properties</div>
+                                <div class="ling-section">
+                                    <h3>
+                                        <a href="<?php echo base_url(); ?>Properties?I=<?= $city->id; ?>"><?= $city->city; ?></a>
+                                    </h3>
+                                    <p><?= $city->desc; ?></p>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <?php $i++; } ?>
+                <?php endif; ?>
+            
+               
+                          </div>
+            <div class="text-center">
+                <!-- <a href="<?php echo base_url(); ?>Properties" class="button btn-3">
+                    Browse More Properties
+                </a> -->
             </div>
         </div>
     </div>

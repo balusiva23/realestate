@@ -2142,11 +2142,48 @@ if (!empty($_FILES['floorimg']['name'][0])) {
      }
      public function add_City() {
            
-       
+        if ($_FILES['thumnail']['name']) {
+            $thumnail_file_name = $_FILES['thumnail']['name'];
+            // Handle file upload and validation here similar to your previous code
+            $file_name = $_FILES['thumnail']['name'];
+            $fileSize = $_FILES["thumnail"]["size"]/1024;
+            $fileType = $_FILES["thumnail"]["type"];
+            $new_file_name='';
+            $new_file_name .= $file_name;
+
+            $config = array(
+                'file_name' => $new_file_name,
+                'upload_path' => "./assets/uploads/properties/thumnail",
+                'allowed_types' => "gif|jpg|png|jpeg|ico",
+                'overwrite' => TRUE,
+                'max_size' => "50720000"
+            );
+            //create directory
+              if(!is_dir($config['upload_path'])) mkdir($config['upload_path'], 0777, TRUE);
+    
+            $this->load->library('Upload', $config);
+            $this->upload->initialize($config);                
+            if (!$this->upload->do_upload('thumnail')) {
+                echo $this->upload->display_errors();
+                #redirect("notice/All_notice");
+            }else {
+
+            $file_data = $this->upload->data();
+            //$img_url = $file_data['file_name'];     
+            // If the upload is successful, get the file name
+            $thumnail_img_url = $file_data['file_name'];
+          }
+        } else {
+            // Handle the case where 'thumnail' file is required but not provided
+            echo json_encode(array('status' => 'error', 'message' => 'Thumbnail image is required.'));
+            return;
+        }
   
        $data = array(
 
-           'city' => $this->input->post('city')
+           'city' => $this->input->post('city'),
+           'desc' => $this->input->post('desc'),
+           'thumnail' =>  $thumnail_img_url
          
           
        );
@@ -2167,14 +2204,66 @@ if (!empty($_FILES['floorimg']['name'][0])) {
    //  }
    }
         
-            public function update_City() {
+         public function update_City() {
 
+            if ($_FILES['thumnail']['name']) {
+                $thumnail_file_name = $_FILES['thumnail']['name'];
+                // Handle file upload and validation here similar to your previous code
+                $file_name = $_FILES['thumnail']['name'];
+                $fileSize = $_FILES["thumnail"]["size"]/1024;
+                $fileType = $_FILES["thumnail"]["type"];
+                $new_file_name='';
+                $new_file_name .= $file_name;
+    
+                $config = array(
+                    'file_name' => $new_file_name,
+                    'upload_path' => "./assets/uploads/city/thumnail",
+                    'allowed_types' => "gif|jpg|png|jpeg|ico",
+                    'overwrite' => TRUE,
+                    'max_size' => "50720000"
+                );
+                //create directory
+                  if(!is_dir($config['upload_path'])) mkdir($config['upload_path'], 0777, TRUE);
+        
+                $this->load->library('Upload', $config);
+                $this->upload->initialize($config);                
+                if (!$this->upload->do_upload('thumnail')) {
+                    echo $this->upload->display_errors();
+                    #redirect("notice/All_notice");
+                }else {
+    
+                $file_data = $this->upload->data();
+                //$img_url = $file_data['file_name'];     
+                // If the upload is successful, get the file name
+                $thumnail_img_url = $file_data['file_name'];
+              }
+            } else {
+                // // Handle the case where 'thumnail' file is required but not provided
+                // echo json_encode(array('status' => 'error', 'message' => 'Thumbnail image is required.'));
+                // return;
+            }
+           if($thumnail_img_url){
             $data = array(
-
-                'city' => $this->input->post('city')
-            
-            
+    
+                'city' => $this->input->post('city'),
+                'desc' => $this->input->post('desc'),
+                'thumnail' =>  $thumnail_img_url
+              
+               
             );
+           }else{
+            $data = array(
+    
+                'city' => $this->input->post('city'),
+                'desc' => $this->input->post('desc'),
+                
+              
+               
+            );
+           }
+         
+
+          
   
             $table = 'cities';
                         

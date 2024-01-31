@@ -114,7 +114,7 @@
                          foreach ($get_cities as  $value) { ?>
                                <div class="checkbox checkbox-theme checkbox-circle">
                         <!-- <option value="<?= $value->id ?>"><?= $value->city; ?></option> -->
-                        <input id="cityCheckbok_<?= $value->id ?>" type="checkbox" class="common_selector city"  name="city" value="<?= $value->id; ?>">
+                        <input id="cityCheckbok_<?= $value->id ?>" type="checkbox" class="common_selector city"  name="city" value="<?= $value->id; ?>" <?php if($this->input->get('I') && $this->input->get('I') == $value->id ) { echo "checked";} ?> >
                         <label for="cityCheckbok_<?= $value->id ?>">
                           <?= $value->city; ?>
                         </label>

@@ -55,6 +55,8 @@
                        <th class="center" >S.No</th>
                       
                         <th class="center"> City Name </th>
+                        <th class="center"> Thumnail </th>
+                        <th class="center"> Description </th>
                       
                         <th class="center"> Action </th>
                   </tr>
@@ -71,6 +73,10 @@
                     
                              
                                 <td class="center">   <?=$member->city; ?></td>
+                                <td class="center"> <img src="<?php echo base_url(); ?>assets/uploads/city/thumnail/<?php echo $member->thumnail ?>" alt="" class="img-fluid" style="width: 100px;"></td>
+                                 
+                             
+                                <td class="center">   <?=$member->desc; ?></td>
                     
                          
                                 <td class="center">
@@ -119,6 +125,16 @@
                 <input type="text" name="city" data-required="1" placeholder="City Name" class="form-control" id="city" required /> 
                 </div>
              
+                 <div class="form-group mt-2">
+                 <label for="inputName" class="col-form-label">Thumnail<span class="error"> * </span></label><br>
+	                <input type="file"  class="form-control" name="thumnail" id="thumnail">
+                </div>
+
+                <div class="form-group mt-2">
+                <label for="inputName" class="form-label">Description<span class="error">* </span></label>
+                <input type="text" name="desc" data-required="1" placeholder="Description" class="form-control" id="desc" required /> 
+                </div>
+             
                  
             </div>
 
@@ -149,8 +165,17 @@
                <div class="row ">
                 <div class="col-md-12">
                 <div class="form-group mt-2">
-                <label for="inputName" class="form-label">City Name<span class="error">* </span></label>
-                <input type="text" name="city" data-required="1" placeholder="City Name" class="form-control" id="city" required /> 
+                <label for="inputName" class="form-label">City Name<span class="error"> </span></label>
+                <input type="text" name="city" data-required="1" placeholder="City Name" class="form-control" id="city"  /> 
+                </div>
+                <div class="form-group mt-2">
+                 <label for="inputName" class="col-form-label">Thumnail<span class="error">  </span></label><br>
+	                <input type="file"  class="form-control" name="thumnail" id="thumnail">
+                </div>
+
+                <div class="form-group mt-2">
+                <label for="inputName" class="form-label">Description<span class="error"> </span></label>
+                <input type="text" name="desc" data-required="1" placeholder="Description" class="form-control" id="desc"  /> 
                 </div>
              
                
@@ -262,6 +287,7 @@
                         // Populate the modal with the data returned from the server
                         $('#Editverticalycentered [name="id"]').val(response.id);
                         $('#Editverticalycentered [name="city"]').val(response.city);
+                        $('#Editverticalycentered [name="desc"]').val(response.desc);
                         
                        
 
